@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>迎夏輕美學</title>
+<meta name="description" content="由內而外，雕琢夏日肌膚新秩序">
+<!-- Open Graph (LINE / FB 分享預覽) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="迎夏輕美學">
+<meta property="og:description" content="由內而外，雕琢夏日肌膚新秩序">
+<meta property="og:site_name" content="迎夏輕美學">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="迎夏輕美學">
+<meta name="twitter:description" content="由內而外，雕琢夏日肌膚新秩序">
+<style>
+  :root{
+    --blue:#7d92c4;
+    --blue-soft:#aab8df;
+    --ink:#3b4257;
+    --ink-soft:#6a7185;
+    --price:#c75d5d;
+    --bg1:#eef1f9;
+    --bg2:#e7ecfa;
+    --bg3:#f3eef6;
+    --card:#ffffff;
+    --pill:#dfe5f5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+    color:var(--ink);
+    background:linear-gradient(160deg,var(--bg1) 0%,var(--bg2) 45%,var(--bg3) 100%);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 18px 80px}
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;
+    padding:64px 18px 48px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;inset:0;
+    background:
+      radial-gradient(60% 50% at 80% 10%,rgba(199,93,93,.10),transparent 60%),
+      radial-gradient(55% 45% at 15% 20%,rgba(125,146,196,.18),transparent 60%);
+    pointer-events:none;
+  }
+  .hero-inner{position:relative;max-width:920px;margin:0 auto}
+  .hero h1{
+    font-size:clamp(42px,9vw,86px);
+    font-weight:800;
+    letter-spacing:.12em;
+    background:linear-gradient(120deg,#6b7fb8,#9aa9d6);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin-bottom:18px;
+  }
+  .hero p{
+    font-size:clamp(15px,3.6vw,20px);
+    color:var(--ink-soft);
+    letter-spacing:.16em;
+  }
+  .hero .brand{
+    display:inline-block;margin-top:26px;
+    font-size:13px;letter-spacing:.3em;color:var(--blue);
+    border:1px solid var(--blue-soft);
+    border-radius:40px;padding:7px 20px;
+    background:rgba(255,255,255,.55);
+  }
+
+  /* ===== Section ===== */
+  .section{
+    background:var(--card);
+    border-radius:26px;
+    box-shadow:0 18px 50px -28px rgba(80,96,150,.55);
+    padding:8px;
+    margin-bottom:34px;
+  }
+  .sec-head{
+    display:flex;align-items:center;gap:12px;
+    background:linear-gradient(110deg,#c5d0ec,#dfe5f5);
+    border-radius:20px;
+    padding:18px 24px;
+    margin-bottom:8px;
+  }
+  .sec-head .crown{font-size:24px}
+  .sec-head h2{
+    font-size:clamp(19px,4.4vw,26px);
+    font-weight:800;letter-spacing:.06em;color:#46506e;
+    flex:1;
+  }
+  .sec-head .tag{
+    background:#fff;color:var(--price);
+    font-weight:800;font-size:clamp(18px,4.4vw,26px);
+    border-radius:14px;padding:6px 16px;letter-spacing:.04em;
+    box-shadow:0 6px 16px -8px rgba(199,93,93,.5);
+  }
+  .sec-body{padding:14px 22px 22px}
+
+  /* ===== Numbered list ===== */
+  .item{
+    display:flex;align-items:flex-start;gap:14px;
+    padding:16px 6px;
+    border-bottom:1px dashed #e2e6f1;
+  }
+  .item:last-child{border-bottom:none}
+  .num{
+    flex:none;width:30px;height:30px;border-radius:50%;
+    background:linear-gradient(135deg,#8294c5,#aab8df);
+    color:#fff;font-weight:700;font-size:15px;
+    display:flex;align-items:center;justify-content:center;
+    margin-top:2px;
+  }
+  .desc{flex:1;font-size:clamp(15px,3.6vw,18px);color:var(--ink)}
+  .desc b{color:var(--price);font-weight:800}
+  .amt{
+    flex:none;font-size:clamp(20px,5vw,28px);
+    font-weight:800;color:var(--price);
+    letter-spacing:.02em;white-space:nowrap;align-self:center;
+  }
+  .amt small{font-size:.6em;font-weight:600;opacity:.8}
+
+  /* ===== A+B combo cards ===== */
+  .combos{
+    display:grid;grid-template-columns:1fr 1fr;gap:18px;
+    margin-top:22px;
+  }
+  .combo{
+    background:linear-gradient(165deg,#f6f8ff,#eef1fb);
+    border:1px solid #e1e7f6;
+    border-radius:22px;padding:22px 20px;
+  }
+  .combo-top{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:16px;
+  }
+  .ab{
+    font-weight:700;color:var(--blue);font-size:14px;letter-spacing:.1em;
+    background:#fff;border-radius:30px;padding:6px 14px;
+  }
+  .combo-price{font-size:clamp(24px,6vw,34px);font-weight:800;color:var(--price)}
+  .combo-line{display:flex;gap:10px;padding:9px 0;font-size:clamp(14px,3.4vw,16px)}
+  .badge{
+    flex:none;width:24px;height:24px;border-radius:50%;
+    background:var(--pill);
+    font-weight:700;font-size:13px;
+    display:flex;align-items:center;justify-content:center;color:#5566a0;
+  }
+
+  /* ===== Contour section ===== */
+  .contour .areaA{
+    background:linear-gradient(165deg,#eef1fb,#e6ebf8);
+    border-radius:20px;padding:22px;text-align:center;
+    border:1px solid #e1e7f6;
+  }
+  .contour .areaA .label{font-size:clamp(18px,4.4vw,22px);font-weight:800;letter-spacing:.16em;color:var(--blue);margin-bottom:10px}
+  .contour .areaA .big{font-size:clamp(22px,5.5vw,30px);font-weight:800;color:var(--ink)}
+  .contour .areaA .big span{color:var(--price)}
+  .pick{font-size:clamp(18px,4.4vw,22px);font-weight:800;color:var(--ink);letter-spacing:.1em;margin:22px 0 12px}
+  .opt{
+    display:flex;align-items:center;gap:12px;
+    border:1px solid #e2e6f1;border-radius:40px;
+    padding:14px 20px;margin-bottom:12px;
+    font-size:clamp(14px,3.4vw,17px);
+  }
+  .opt .badge{background:var(--pill)}
+  .addon{
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    background:linear-gradient(110deg,#dfe5f5,#eef1fb);
+    border-radius:40px;padding:14px 22px;margin-top:8px;
+  }
+  .addon .chip{
+    background:var(--blue);color:#fff;font-weight:700;
+    border-radius:30px;padding:6px 16px;font-size:14px;letter-spacing:.1em;
+  }
+  .addon .q{font-size:clamp(15px,3.6vw,18px)}
+  .addon .qprice{margin-left:auto;font-weight:800;color:var(--price);font-size:clamp(18px,4.6vw,24px)}
+
+  /* ===== CTA ===== */
+  .cta{
+    text-align:center;margin-top:46px;
+    padding:38px 24px;
+    background:linear-gradient(135deg,#7d92c4,#9aa9d6);
+    border-radius:26px;color:#fff;
+  }
+  .cta h3{font-size:clamp(20px,5vw,28px);font-weight:800;letter-spacing:.08em;margin-bottom:10px}
+  .cta p{opacity:.92;letter-spacing:.1em;margin-bottom:22px;font-size:15px}
+  .cta a{
+    display:inline-block;background:#fff;color:#4a5680;
+    font-weight:800;letter-spacing:.1em;
+    text-decoration:none;border-radius:40px;
+    padding:14px 38px;font-size:17px;
+    box-shadow:0 14px 30px -14px rgba(0,0,0,.4);
+    transition:transform .15s ease;
+  }
+  .cta a:hover{transform:translateY(-2px)}
+
+  .note{text-align:center;color:var(--ink-soft);font-size:12px;letter-spacing:.08em;margin-top:24px}
+
+  @media(max-width:560px){
+    .combos{grid-template-columns:1fr}
+    .item{gap:10px}
+  }
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <h1>迎夏輕美學</h1>
+      <p>由內而外，雕琢夏日肌膚新秩序</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- Section 1 -->
+    <section class="section">
+      <div class="sec-head">
+        <span class="crown">👑</span>
+        <h2>好評延續｜膚質改善 &amp; 面部精雕</h2>
+      </div>
+      <div class="sec-body">
+
+        <div class="item">
+          <div class="num">1</div>
+          <div class="desc">肉毒<b>4</b>區 <b>OR</b> 咀肌／拉提</div>
+          <div class="amt">5,288</div>
+        </div>
+
+        <div class="item">
+          <div class="num">2</div>
+          <div class="desc">皮秒雷射＋蜂巢雷射<b>×1</b>＋喬雅露水光單針<b>×1</b>＋SOS修復面膜<b>×1</b></div>
+          <div class="amt">9,988</div>
+        </div>
+
+        <div class="item">
+          <div class="num">3</div>
+          <div class="desc">皮秒＋蜂巢雷射<b>×3</b>＋外泌體修復<b>×3</b>＋SOS修復面膜<b>×3</b></div>
+          <div class="amt">20,888</div>
+        </div>
+
+        <div class="item">
+          <div class="num">4</div>
+          <div class="desc">韓國玻尿酸<b>×2</b> <b>OR</b> 緹奧希玻尿酸<b>×1</b>＋肉毒<b>3</b>區</div>
+          <div class="amt">19,888</div>
+        </div>
+
+        <div class="item">
+          <div class="num">5</div>
+          <div class="desc">膠原蛋白熊貓針<b>×1</b>＋緹奧希玻尿酸<b>×1</b></div>
+          <div class="amt">30,888</div>
+        </div>
+
+        <!-- combos -->
+        <div class="combos">
+          <div class="combo">
+            <div class="combo-top">
+              <span class="ab">A ＋ B</span>
+              <span class="combo-price">38,888</span>
+            </div>
+            <div class="combo-line"><span class="badge">A</span><span>媚必提300發＋Z音波300發</span></div>
+            <div class="combo-line"><span class="badge">B</span><span>肉毒（咀肌／拉提）</span></div>
+          </div>
+
+          <div class="combo">
+            <div class="combo-top">
+              <span class="ab">A ＋ B ＋ C</span>
+              <span class="combo-price">68,888</span>
+            </div>
+            <div class="combo-line"><span class="badge">A</span><span>無雙電波600發＋IG電波300發</span></div>
+            <div class="combo-line"><span class="badge">B</span><span>肉毒3區（抬頭｜眉心｜魚尾）</span></div>
+            <div class="combo-line"><span class="badge">C</span><span>韓系玻尿酸 1 支</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 2: Contour -->
+    <section class="section contour">
+      <div class="sec-head">
+        <span class="crown">👑</span>
+        <h2>輪廓輕美學</h2>
+        <span class="tag">A區＋B區 105,000</span>
+      </div>
+      <div class="sec-body">
+
+        <div class="areaA">
+          <div class="label">A 區</div>
+          <div class="big">無雙電波 <span>1000</span> 發</div>
+        </div>
+
+        <div class="pick">B 區（4 選 2 ・不可重複）</div>
+
+        <div class="opt"><span class="badge">1</span><span>喬雅露水光煥膚<b>×1</b>＋SOS修復面膜<b>×1</b></span></div>
+        <div class="opt"><span class="badge">2</span><span>皮秒雷射＋蜂巢雷射＋喬雅露毛孔針＋SOS修復面膜</span></div>
+        <div class="opt"><span class="badge">3</span><span>全臉肉毒（上半臉三區＋下半臉咀肌／拉提）</span></div>
+        <div class="opt"><span class="badge">4</span><span>韓系玻尿酸 <b>×1</b> 支</span></div>
+
+        <div class="addon">
+          <span class="chip">加購</span>
+          <span class="q">Q＋音波 300發</span>
+          <span class="qprice">1????</span>
+        </div>
+
+      </div>
+    </section>
+
+    <p class="note">※ 本活動內容與價格以診所現場公告為準，療程效果因人而異，需經醫師評估。</p>
+
+  </main>
+
+</body>
+</html>
