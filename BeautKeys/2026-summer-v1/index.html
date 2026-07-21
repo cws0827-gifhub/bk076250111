@@ -154,6 +154,29 @@
     display:flex;align-items:center;justify-content:center;color:#5566a0;
   }
 
+  /* ===== Collagen product cards ===== */
+  .prods{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  }
+  .prod{
+    background:linear-gradient(165deg,#f6f8ff,#eef1fb);
+    border:1px solid #e1e7f6;
+    border-radius:22px;padding:20px 18px;
+    display:flex;flex-direction:column;gap:12px;
+  }
+  .prod-top{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .prod-name{
+    font-weight:800;color:#46506e;
+    font-size:clamp(16px,3.8vw,19px);letter-spacing:.04em;
+  }
+  .prod-name small{
+    display:block;font-size:12px;font-weight:700;color:var(--blue);
+    letter-spacing:.14em;margin-bottom:2px;
+  }
+  .prod-price{font-size:clamp(20px,5vw,26px);font-weight:800;color:var(--price);white-space:nowrap}
+  .prod-desc{font-size:clamp(13px,3.2vw,15px);color:var(--ink-soft);line-height:1.75}
+  @media(max-width:720px){.prods{grid-template-columns:1fr}}
+
   /* ===== Contour section ===== */
   .contour .areaA{
     background:linear-gradient(165deg,#eef1fb,#e6ebf8);
@@ -310,7 +333,44 @@
       </div>
     </section>
 
-    <!-- Section 3: Contour -->
+    <!-- Section 3: Collagen products -->
+    <section class="section">
+      <div class="sec-head">
+        <span class="crown">💝</span>
+        <h2>膠原澎潤美學系列</h2>
+      </div>
+      <div class="sec-body">
+        <div class="prods">
+
+          <div class="prod">
+            <div class="prod-top">
+              <div class="prod-name"><small>膠原澎潤美學</small>妮芙雷</div>
+              <div class="prod-price">22,000</div>
+            </div>
+            <p class="prod-desc">啟動肌膚支撐力，改善臉部凹陷與細緻紋理，打造自然澎潤、柔和立體的輪廓美感。</p>
+          </div>
+
+          <div class="prod">
+            <div class="prod-top">
+              <div class="prod-name"><small>自然澎潤</small>精靈針</div>
+              <div class="prod-price">26,000</div>
+            </div>
+            <p class="prod-desc">結合立即填補與膠原增生雙重作用，改善臉部凹陷、靜態紋路與膚質問題，打造自然澎潤感，讓輪廓呈現柔和立體之美。</p>
+          </div>
+
+          <div class="prod">
+            <div class="prod-top">
+              <div class="prod-name"><small>膠原立體</small>舒顏萃 💝</div>
+              <div class="prod-price">26,000</div>
+            </div>
+            <p class="prod-desc">透過 PLLA 刺激自體膠原增生，隨時間逐漸展現自然變化，改善因支撐流失造成的凹陷與肌膚紋理，呈現由內而外的澎潤感。</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Contour -->
     <section class="section contour">
       <div class="sec-head">
         <span class="crown">👑</span>
