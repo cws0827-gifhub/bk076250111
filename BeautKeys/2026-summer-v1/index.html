@@ -173,9 +173,15 @@
     display:block;font-size:12px;font-weight:700;color:var(--blue);
     letter-spacing:.14em;margin-bottom:2px;
   }
+  .prod-name em{
+    display:block;font-style:normal;
+    font-size:12.5px;font-weight:600;color:var(--ink-soft);
+    letter-spacing:.06em;margin-top:3px;
+  }
   .prod-price{font-size:clamp(20px,5vw,26px);font-weight:800;color:var(--price);white-space:nowrap}
   .prod-desc{font-size:clamp(13px,3.2vw,15px);color:var(--ink-soft);line-height:1.75}
-  @media(max-width:720px){.prods{grid-template-columns:1fr}}
+  @media(max-width:900px){.prods{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.prods{grid-template-columns:1fr}}
 
   /* ===== Contour section ===== */
   .contour .areaA{
@@ -344,26 +350,34 @@
 
           <div class="prod">
             <div class="prod-top">
-              <div class="prod-name"><small>膠原澎潤美學</small>妮芙雷</div>
+              <div class="prod-name"><small>膠原澎潤美學</small>妮芙蕾<em>NeoFilera・澎怦針</em></div>
               <div class="prod-price">22,000</div>
             </div>
-            <p class="prod-desc">啟動肌膚支撐力，改善臉部凹陷與細緻紋理，打造自然澎潤、柔和立體的輪廓美感。</p>
+            <p class="prod-desc">以 PDLLA 搭配 CMC 凝膠，兼具即時填補與長效膠原增生。啟動肌膚支撐力，改善臉部凹陷與細緻紋理，打造自然澎潤、柔和立體的輪廓美感。</p>
           </div>
 
           <div class="prod">
             <div class="prod-top">
-              <div class="prod-name"><small>自然澎潤</small>精靈針</div>
-              <div class="prod-price">26,000</div>
+              <div class="prod-name"><small>自然澎潤</small>精靈針<em>AestheFill・艾麗斯</em></div>
+              <div class="prod-price">28,000</div>
             </div>
-            <p class="prod-desc">結合立即填補與膠原增生雙重作用，改善臉部凹陷、靜態紋路與膚質問題，打造自然澎潤感，讓輪廓呈現柔和立體之美。</p>
+            <p class="prod-desc">PDLLA 聚雙旋乳酸多孔微球，結合立即填補與膠原增生雙重作用，改善臉部凹陷、靜態紋路與膚質問題，打造自然澎潤感，讓輪廓呈現柔和立體之美。</p>
           </div>
 
           <div class="prod">
             <div class="prod-top">
-              <div class="prod-name"><small>膠原立體</small>舒顏萃 💝</div>
-              <div class="prod-price">26,000</div>
+              <div class="prod-name"><small>膠原立體</small>舒顏萃 💝<em>Sculptra・童顏針</em></div>
+              <div class="prod-price">29,000</div>
             </div>
-            <p class="prod-desc">透過 PLLA 刺激自體膠原增生，隨時間逐漸展現自然變化，改善因支撐流失造成的凹陷與肌膚紋理，呈現由內而外的澎潤感。</p>
+            <p class="prod-desc">透過 PLLA 聚左旋乳酸刺激自體膠原增生，隨時間逐漸展現自然變化，改善因支撐流失造成的凹陷與肌膚紋理，呈現由內而外的澎潤感。</p>
+          </div>
+
+          <div class="prod">
+            <div class="prod-top">
+              <div class="prod-name"><small>立體支撐</small>再生針<em>Radiesse・晶亮瓷</em></div>
+              <div class="prod-price">25,000</div>
+            </div>
+            <p class="prod-desc">以 CaHA 微晶球搭配 CMC 凝膠，注射後即刻建立支撐、雕塑輪廓線條，並持續誘導膠原纖維增生，適合鼻型、下巴與蘋果肌等立體度提升。</p>
           </div>
 
         </div>
