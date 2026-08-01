@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盛夏美顏計畫</title>
+<meta name="description" content="盛夏限定，從容綻放">
+<!-- Open Graph (LINE / FB 分享預覽) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="盛夏美顏計畫">
+<meta property="og:description" content="盛夏限定，從容綻放">
+<meta property="og:site_name" content="盛夏美顏計畫">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="盛夏美顏計畫">
+<meta name="twitter:description" content="盛夏限定，從容綻放">
+<style>
+  :root{
+    --ink:#4a5140;
+    --ink-soft:#7d8472;
+    --green:#6e7a5e;
+    --green-soft:#9aa588;
+    --price:#d0763c;
+    --gold:#e8a44a;
+    --card:#ffffff;
+    --pill:#f0ecdc;
+    --line:#e8e4d4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+    color:var(--ink);
+    background:linear-gradient(165deg,#fbf6dd 0%,#f7f4e6 40%,#f4f6ee 100%);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:940px;margin:0 auto;padding:0 18px 90px}
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;
+    padding:70px 18px 52px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;inset:0;
+    background:
+      radial-gradient(60% 55% at 78% 8%,rgba(232,164,74,.22),transparent 62%),
+      radial-gradient(58% 48% at 14% 22%,rgba(154,165,136,.20),transparent 62%);
+    pointer-events:none;
+  }
+  .hero-inner{position:relative;max-width:940px;margin:0 auto}
+  .hero h1{
+    font-size:clamp(40px,9vw,84px);
+    font-weight:800;
+    letter-spacing:.14em;
+    color:var(--green);
+    margin-bottom:16px;
+    text-shadow:0 2px 0 rgba(255,255,255,.6);
+  }
+  .hero p{
+    font-size:clamp(15px,3.6vw,20px);
+    color:var(--ink-soft);
+    letter-spacing:.2em;
+  }
+
+  /* ===== Section ===== */
+  .section{
+    background:var(--card);
+    border-radius:28px;
+    box-shadow:0 18px 50px -30px rgba(110,122,94,.55);
+    padding:10px;
+    margin-bottom:30px;
+  }
+  .sec-head{
+    display:flex;align-items:center;gap:12px;
+    background:linear-gradient(110deg,#f3efd9,#f8f6ea);
+    border-radius:22px;
+    padding:18px 24px;
+  }
+  .sec-head .sun{font-size:24px;flex:none}
+  .sec-head h2{
+    font-size:clamp(19px,4.6vw,27px);
+    font-weight:800;letter-spacing:.06em;color:var(--green);
+    flex:1;
+  }
+  .sec-body{padding:16px 22px 24px}
+
+  /* ===== Item rows ===== */
+  .item{
+    display:flex;align-items:flex-start;gap:14px;
+    padding:16px 4px;
+    border-bottom:1px dashed var(--line);
+  }
+  .item:last-child{border-bottom:none}
+  .tag{
+    flex:none;width:30px;height:30px;border-radius:50%;
+    background:linear-gradient(135deg,#8c9a76,#adb894);
+    color:#fff;font-weight:700;font-size:15px;
+    display:flex;align-items:center;justify-content:center;
+    margin-top:3px;
+  }
+  .desc{flex:1;font-size:clamp(15px,3.7vw,18px)}
+  .desc .sub{
+    display:block;font-size:.86em;color:var(--ink-soft);
+    letter-spacing:.04em;margin-top:2px;
+  }
+  .desc b{color:var(--price);font-weight:800}
+  .amt{
+    flex:none;font-size:clamp(20px,5vw,28px);
+    font-weight:800;color:var(--price);
+    white-space:nowrap;align-self:center;
+  }
+
+  /* multi-tier price rows */
+  .tiers{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+  .tier{
+    display:flex;align-items:center;gap:12px;
+    background:var(--pill);border-radius:30px;
+    padding:9px 18px;
+  }
+  .tier .u{
+    font-weight:700;color:var(--green);letter-spacing:.06em;
+    font-size:clamp(14px,3.4vw,16px);
+  }
+  .tier .p{
+    margin-left:auto;font-weight:800;color:var(--price);
+    font-size:clamp(18px,4.6vw,24px);
+  }
+
+  /* ===== Profhilo highlight ===== */
+  .glow{
+    background:linear-gradient(150deg,#fdfaf0,#f6f3e4);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:20px 22px;
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    margin-bottom:12px;
+  }
+  .glow:last-child{margin-bottom:0}
+  .glow .t{flex:1;min-width:200px;font-size:clamp(15px,3.7vw,19px);font-weight:600}
+  .glow .t small{
+    display:block;font-size:.78em;font-weight:500;
+    color:var(--ink-soft);letter-spacing:.08em;margin-bottom:3px;
+  }
+  .glow .p{font-weight:800;color:var(--price);font-size:clamp(22px,5.4vw,30px)}
+
+  /* ===== Collagen product cards ===== */
+  .prods{
+    display:grid;grid-template-columns:1fr 1fr;gap:16px;
+  }
+  .prod{
+    background:linear-gradient(165deg,#fdfbf3,#f7f5e9);
+    border:1px solid var(--line);
+    border-radius:22px;padding:22px 20px;
+  }
+  .prod-top{
+    display:flex;align-items:baseline;justify-content:space-between;
+    gap:10px;flex-wrap:wrap;
+    padding-bottom:14px;margin-bottom:14px;
+    border-bottom:1px dashed var(--line);
+  }
+  .prod-name{
+    font-size:clamp(20px,4.8vw,25px);font-weight:800;
+    color:var(--green);letter-spacing:.04em;
+  }
+  .prod-name em{
+    display:block;font-style:normal;
+    font-size:.56em;font-weight:600;color:var(--ink-soft);
+    letter-spacing:.06em;margin-top:3px;
+  }
+  .prod-price{font-weight:800;color:var(--price);font-size:clamp(22px,5.4vw,29px)}
+  .prod p{font-size:clamp(14px,3.4vw,15.5px);color:var(--ink-soft);line-height:1.85}
+
+  .note{
+    text-align:center;color:var(--ink-soft);
+    font-size:12.5px;letter-spacing:.06em;margin-top:26px;line-height:1.9;
+  }
+
+  @media(max-width:600px){
+    .prods{grid-template-columns:1fr}
+    .item{gap:11px}
+  }
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <h1>盛夏美顏計畫</h1>
+      <p>盛夏限定，從容綻放</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- 1. 自然線條 x 表情管理 -->
+    <section class="section">
+      <div class="sec-head">
+        <span class="sun">☀️</span>
+        <h2>自然線條 × 表情管理</h2>
+      </div>
+      <div class="sec-body">
+
+        <div class="item">
+          <div class="tag">A</div>
+          <div class="desc">肉毒上半臉五區＋咀肌 <b>OR</b> 拉提</div>
+          <div class="amt">9,988</div>
+        </div>
+
+        <div class="item">
+          <div class="tag">B</div>
+          <div class="desc">
+            肉毒大肌群（任選乙區）
+            <span class="sub">① 肩膀　② 小腿　③ 腋下止汗</span>
+            <div class="tiers">
+              <div class="tier"><span class="u">100U</span><span class="p">9,500</span></div>
+              <div class="tier"><span class="u">150U</span><span class="p">14,000</span></div>
+              <div class="tier"><span class="u">200U</span><span class="p">18,000</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. 清爽一夏 x 女性私密保養 -->
+    <section class="section">
+      <div class="sec-head">
+        <span class="sun">☀️</span>
+        <h2>清爽一夏 × 女性私密保養</h2>
+      </div>
+      <div class="sec-body">
+
+        <div class="item">
+          <div class="tag">C</div>
+          <div class="desc">海神除毛　腋下＋私密處<span class="sub">限乙組</span></div>
+          <div class="amt">3,888</div>
+        </div>
+
+        <div class="item">
+          <div class="tag">D</div>
+          <div class="desc">海神雷射除毛 <b>×24</b></div>
+          <div class="amt">23,888</div>
+        </div>
+
+        <div class="item">
+          <div class="tag">E</div>
+          <div class="desc">蝴蝶電波 <b>×1</b> ＋ 韓國玻尿酸 <b>×1</b><span class="sub">女性私密保養</span></div>
+          <div class="amt">48,888</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. 皮膚管理懶人包 -->
+    <section class="section">
+      <div class="sec-head">
+        <span class="sun">☀️</span>
+        <h2>皮膚管理懶人包</h2>
+      </div>
+      <div class="sec-body">
+
+        <div class="item">
+          <div class="tag">F</div>
+          <div class="desc">皮秒＋蜂巢雷射 <b>×3</b> ＋ 喬雅露毛孔針 <b>×3</b> ＋ SOS修護面膜 <b>×3</b></div>
+          <div class="amt">28,888</div>
+        </div>
+
+        <div class="item">
+          <div class="tag">G</div>
+          <div class="desc">
+            皮秒雷射＋傳明酸水光＋SOS修護面膜
+            <span class="sub">除斑模式</span>
+            <div class="tiers">
+              <div class="tier"><span class="u">3 堂</span><span class="p">25,888</span></div>
+              <div class="tier"><span class="u">6 堂</span><span class="p">45,888</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. 面部精雕 x 輪廓微調 -->
+    <section class="section">
+      <div class="sec-head">
+        <span class="sun">☀️</span>
+        <h2>面部精雕 × 輪廓微調</h2>
+      </div>
+      <div class="sec-body">
+
+        <div class="item">
+          <div class="tag">H</div>
+          <div class="desc">Q＋立線音波 <b>400</b> ＋ 肉毒 <b>3</b>區<span class="sub">眼周</span></div>
+          <div class="amt">15,888</div>
+        </div>
+
+        <div class="item">
+          <div class="tag">I</div>
+          <div class="desc">Q＋立線音波 <b>600</b> ＋ 肉毒 <b>40U</b><span class="sub">輪廓線</span></div>
+          <div class="amt">22,888</div>
+        </div>
+
+        <div class="item">
+          <div class="tag">J</div>
+          <div class="desc">韓國玻尿酸 <b>2＋1</b></div>
+          <div class="amt">32,888</div>
+        </div>
+
+        <div class="item">
+          <div class="tag">K</div>
+          <div class="desc">緹奧希玻尿酸 <b>1＋1</b> ＋ 肉毒 <b>3</b>區</div>
+          <div class="amt">35,888</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. 逆時針 Profhilo -->
+    <section class="section">
+      <div class="sec-head">
+        <span class="sun">☀️</span>
+        <h2>自然澎潤 × 神情更精緻</h2>
+      </div>
+      <div class="sec-body">
+        <div class="glow">
+          <div class="t">逆時針 <b>2cc</b> ＋ 肉毒上半臉除皺</div>
+          <div class="p">35,888</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="sec-head">
+        <span class="sun">☀️</span>
+        <h2>全臉澎潤・水光綻放</h2>
+      </div>
+      <div class="sec-body">
+        <div class="glow">
+          <div class="t">逆時針 <b>6cc</b> ＋ 喬雅露水光乙堂</div>
+          <div class="p">108,000</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. 膠原澎潤系列 -->
+    <section class="section">
+      <div class="sec-head">
+        <span class="sun">💛</span>
+        <h2>膠原澎潤美學系列</h2>
+      </div>
+      <div class="sec-body">
+        <div class="prods">
+
+          <div class="prod">
+            <div class="prod-top">
+              <div class="prod-name">妮芙蕾<em>NeoFilera・澎怦針</em></div>
+              <div class="prod-price">22,000</div>
+            </div>
+            <p>以 PDLLA 搭配 CMC 凝膠，兼具即時填補與長效膠原增生。啟動肌膚支撐力，改善臉部凹陷與細緻紋理，打造自然澎潤、柔和立體的輪廓美感。</p>
+          </div>
+
+          <div class="prod">
+            <div class="prod-top">
+              <div class="prod-name">精靈針<em>AestheFill・艾麗斯</em></div>
+              <div class="prod-price">28,000</div>
+            </div>
+            <p>PDLLA 聚雙旋乳酸多孔微球，結合立即填補與膠原增生雙重作用，改善臉部凹陷、靜態紋路與膚質問題，打造自然澎潤感，讓輪廓呈現柔和立體之美。</p>
+          </div>
+
+          <div class="prod">
+            <div class="prod-top">
+              <div class="prod-name">舒顏萃<em>Sculptra・童顏針</em></div>
+              <div class="prod-price">29,000</div>
+            </div>
+            <p>透過 PLLA 聚左旋乳酸刺激自體膠原增生，隨時間逐漸展現自然變化，改善因支撐流失造成的凹陷與肌膚紋理，呈現由內而外的澎潤感。</p>
+          </div>
+
+          <div class="prod">
+            <div class="prod-top">
+              <div class="prod-name">再生針<em>Radiesse・晶亮瓷</em></div>
+              <div class="prod-price">29,000</div>
+            </div>
+            <p>以 CaHA 微晶球搭配 CMC 凝膠，注射後即刻建立支撐、雕塑輪廓線條，並持續誘導膠原纖維增生，適合鼻型、下巴與蘋果肌等立體度提升。</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <p class="note">※ 本活動內容與價格以診所現場公告為準，療程效果因人而異，需經醫師評估。</p>
+
+  </main>
+
+</body>
+</html>
