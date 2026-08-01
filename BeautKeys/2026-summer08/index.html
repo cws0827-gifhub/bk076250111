@@ -174,13 +174,102 @@
   .prod-price{font-weight:800;color:var(--price);font-size:clamp(22px,5.4vw,29px)}
   .prod p{font-size:clamp(14px,3.4vw,15.5px);color:var(--ink-soft);line-height:1.85}
 
+  /* ===== 大禮包卡片 ===== */
+  .gifts{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .gift{
+    background:linear-gradient(165deg,#f7f9fd,#eef3fb);
+    border:1px solid #dfe7f3;
+    border-radius:22px;padding:22px 20px;
+  }
+  .gift-top{
+    display:flex;align-items:baseline;justify-content:space-between;
+    gap:10px;flex-wrap:wrap;
+    padding-bottom:14px;margin-bottom:14px;
+    border-bottom:1px dashed #dfe7f3;
+  }
+  .gift-name{
+    font-size:clamp(19px,4.6vw,24px);font-weight:800;
+    color:#4a5f8a;letter-spacing:.06em;
+  }
+  .gift-price{font-weight:800;color:var(--price);font-size:clamp(24px,5.8vw,32px)}
+  .gift ul{list-style:none}
+  .gift li{
+    display:flex;gap:10px;align-items:baseline;
+    padding:7px 0;font-size:clamp(14.5px,3.5vw,16.5px);
+  }
+  .gift li::before{content:"·";color:#8ba0c8;font-weight:800;font-size:1.4em;line-height:1}
+  .gift li span{margin-left:auto;color:var(--price);font-weight:700;white-space:nowrap}
+  .gift .aim{
+    margin-top:12px;padding-top:12px;border-top:1px dashed #dfe7f3;
+    font-size:13.5px;color:var(--ink-soft);letter-spacing:.04em;
+  }
+
+  /* ===== 限時快閃 ===== */
+  .flash-head{
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    background:linear-gradient(110deg,#fbe8e2,#fdf3ee);
+    border-radius:22px;padding:18px 24px;
+  }
+  .flash-head h2{
+    font-size:clamp(19px,4.6vw,27px);font-weight:800;
+    letter-spacing:.06em;color:#b8512f;flex:1;
+  }
+  .flash-badge{
+    background:#c9432a;color:#fff;font-weight:800;
+    border-radius:30px;padding:6px 16px;
+    font-size:clamp(13px,3.2vw,15px);letter-spacing:.06em;white-space:nowrap;
+  }
+  .flash{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    background:linear-gradient(150deg,#fffaf7,#fdf1ea);
+    border:1px solid #f2dcd2;border-radius:22px;
+    padding:20px 22px;margin-bottom:12px;
+  }
+  .flash:last-child{margin-bottom:0}
+  .flash .t{flex:1;min-width:210px;font-size:clamp(16px,3.9vw,20px);font-weight:700}
+  .flash .t small{
+    display:block;font-size:.76em;font-weight:500;
+    color:var(--ink-soft);letter-spacing:.04em;margin-top:4px;
+  }
+  .flash .p{font-weight:800;color:#c9432a;font-size:clamp(24px,5.8vw,32px);line-height:1.2}
+  .flash .p em{
+    display:block;font-style:normal;font-size:.4em;
+    font-weight:600;color:var(--ink-soft);letter-spacing:.08em;
+  }
+
+  /* ===== 眼周方案 ===== */
+  .plan{
+    background:linear-gradient(150deg,#fdfbf3,#f6f5ea);
+    border:1px solid var(--line);border-radius:22px;
+    padding:20px 22px;margin-bottom:14px;
+  }
+  .plan:last-child{margin-bottom:0}
+  .plan-top{
+    display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+    padding-bottom:12px;margin-bottom:12px;
+    border-bottom:1px dashed var(--line);
+  }
+  .plan-top .n{font-size:clamp(17px,4.2vw,22px);font-weight:800;color:var(--green)}
+  .plan-top .c{font-size:13px;color:var(--ink-soft);letter-spacing:.08em}
+  .plan-top .p{margin-left:auto;font-weight:800;color:var(--price);font-size:clamp(22px,5.4vw,30px)}
+  .plan-line{display:flex;gap:11px;align-items:baseline;padding:7px 0;font-size:clamp(14.5px,3.5vw,17px)}
+  .plan-line .no{
+    flex:none;width:22px;height:22px;border-radius:50%;
+    background:var(--pill);color:#7d8a68;font-weight:700;font-size:12.5px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .plan-line .brand{
+    font-size:.8em;color:var(--ink-soft);letter-spacing:.06em;margin-right:2px;
+  }
+  .plan-line .shot{margin-left:auto;color:var(--price);font-weight:700;white-space:nowrap}
+
   .note{
     text-align:center;color:var(--ink-soft);
     font-size:12.5px;letter-spacing:.06em;margin-top:26px;line-height:1.9;
   }
 
   @media(max-width:600px){
-    .prods{grid-template-columns:1fr}
+    .prods,.gifts{grid-template-columns:1fr}
     .item{gap:11px}
   }
 </style>
@@ -314,6 +403,122 @@
           <div class="tag">K</div>
           <div class="desc">緹奧希玻尿酸 <b>1＋1</b> ＋ 肉毒 <b>3</b>區</div>
           <div class="amt">35,888</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 大禮包 -->
+    <section class="section">
+      <div class="sec-head">
+        <span class="sun">💙</span>
+        <h2>音波 × 電波　大禮包</h2>
+      </div>
+      <div class="sec-body">
+        <div class="gifts">
+
+          <div class="gift">
+            <div class="gift-top">
+              <div class="gift-name">音波大禮包</div>
+              <div class="gift-price">38,888</div>
+            </div>
+            <ul>
+              <li>媚必提<span>300 發</span></li>
+              <li>Z 音波<span>300 發</span></li>
+              <li>肉毒<span>咀肌 OR 拉提</span></li>
+            </ul>
+            <div class="aim">適合：肉肉臉、輪廓線不明顯</div>
+          </div>
+
+          <div class="gift">
+            <div class="gift-top">
+              <div class="gift-name">電波大禮包</div>
+              <div class="gift-price">68,888</div>
+            </div>
+            <ul>
+              <li>無雙電波（臉部）<span>600 發</span></li>
+              <li>IntraGen 電波<span>300 發</span></li>
+              <li>肉毒桿菌<span>抬頭・眉心・魚尾</span></li>
+              <li>韓國玻尿酸<span>乙隻</span></li>
+            </ul>
+            <div class="aim">適合：皮肉分離、輪廓線不明顯</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 犀利電波 限時快閃 -->
+    <section class="section">
+      <div class="flash-head">
+        <span class="sun">⚡</span>
+        <h2>犀利電波・孫淑媚同款</h2>
+        <span class="flash-badge">只有 3 天 ｜ 8/5 ~ 8/7</span>
+      </div>
+      <div class="sec-body">
+
+        <div class="flash">
+          <div class="t">
+            犀利電波 <b>600</b> 發
+            <small>加碼　肉毒乙區（抬頭／眉心／魚尾）</small>
+          </div>
+          <div class="p">49,800<em>現金價</em></div>
+        </div>
+
+        <div class="flash">
+          <div class="t">
+            犀利電波 <b>900</b> 發
+            <small>加碼　肉毒上半臉除皺</small>
+          </div>
+          <div class="p">65,000<em>現金價</em></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 夏日電眼養成 -->
+    <section class="section">
+      <div class="sec-head">
+        <span class="sun">👁️</span>
+        <h2>夏日電眼養成</h2>
+      </div>
+      <div class="sec-body">
+        <p style="color:var(--ink-soft);letter-spacing:.1em;margin-bottom:16px;font-size:clamp(14px,3.4vw,16px)">告別疲憊眼神，迎接睛采夏日</p>
+
+        <div class="plan">
+          <div class="plan-top">
+            <span class="n">柔顏眼周管理方案</span>
+            <span class="c">①＋②</span>
+            <span class="p">32,888</span>
+          </div>
+          <div class="plan-line">
+            <span class="no">1</span>
+            <span><span class="brand">DENSITY</span> 無雙電波（眼）</span>
+            <span class="shot">300 發</span>
+          </div>
+          <div class="plan-line">
+            <span class="no">2</span>
+            <span>肉毒 <b>三</b> 區除皺</span>
+            <span class="shot">抬頭｜眉心｜魚尾</span>
+          </div>
+        </div>
+
+        <div class="plan">
+          <div class="plan-top">
+            <span class="n">眉眼立體提拉計畫</span>
+            <span class="c">①＋②</span>
+            <span class="p">68,888</span>
+          </div>
+          <div class="plan-line">
+            <span class="no">1</span>
+            <span><span class="brand">DENSITY</span> 無雙電波（眼）</span>
+            <span class="shot">600 發</span>
+          </div>
+          <div class="plan-line">
+            <span class="no">2</span>
+            <span><span class="brand">LINEAR</span> Z 音波<span class="brand">　提眉 OR 眼下</span></span>
+            <span class="shot">200 發</span>
+          </div>
         </div>
 
       </div>
