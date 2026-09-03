@@ -316,6 +316,50 @@
     line-height:1.9;letter-spacing:.02em;
   }
 
+  /* ===== 音波感謝祭 階梯 ===== */
+  .thanks{
+    background:linear-gradient(150deg,#fff8e8,#fdf1dc);
+    border:1px solid #f2e2c4;
+  }
+  .thanks .sec-head{background:linear-gradient(110deg,#f6e3bd,#fcf3e0)}
+  .thanks .sec-head h2{color:#a9762c}
+  .thanks-sub{
+    text-align:center;font-size:clamp(14.5px,3.5vw,17px);
+    color:#8a6a3a;letter-spacing:.08em;margin-bottom:18px;
+  }
+  .thanks-sub b{color:#c9432a;font-weight:800}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .step{
+    background:#fff;border:1px solid #f0e3cb;border-radius:20px;
+    padding:18px 12px;text-align:center;
+    display:flex;flex-direction:column;gap:9px;
+  }
+  .step .lv{
+    font-size:11.5px;letter-spacing:.16em;color:#b99451;font-weight:700;
+  }
+  .step .amt2{
+    font-size:clamp(19px,4.6vw,25px);font-weight:800;color:var(--ink);
+    letter-spacing:.02em;line-height:1.25;
+  }
+  .step .amt2 span{font-size:.62em;font-weight:700;color:var(--ink-soft)}
+  .step .arw{color:#d8bd8a;font-size:15px;line-height:1}
+  .step .give{
+    background:linear-gradient(135deg,#fdf3e3,#f9e9d0);
+    border-radius:14px;padding:9px 6px;
+  }
+  .step .give small{
+    display:block;font-size:11.5px;color:#8a6a3a;letter-spacing:.08em;margin-bottom:2px;
+  }
+  .step .give b{
+    font-size:clamp(19px,4.6vw,26px);color:var(--price);font-weight:800;
+  }
+  .step .give b em{font-style:normal;font-size:.55em;font-weight:700}
+  .thanks-note{
+    margin-top:14px;text-align:center;
+    font-size:12.5px;color:#8a6a3a;letter-spacing:.04em;
+  }
+  @media(max-width:700px){.steps{grid-template-columns:repeat(2,1fr)}}
+
   .note{
     text-align:center;color:var(--ink-soft);
     font-size:12.5px;letter-spacing:.06em;margin-top:26px;line-height:1.9;
@@ -337,6 +381,46 @@
   </header>
 
   <main class="wrap">
+
+    <!-- 音波感謝祭 -->
+    <section class="section thanks">
+      <div class="sec-head">
+        <span class="sun">🎁</span>
+        <h2>音波感謝祭</h2>
+      </div>
+      <div class="sec-body">
+        <p class="thanks-sub"><b>不限療程</b>　消費滿額即加碼 Q＋音波</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="lv">LEVEL 1</div>
+            <div class="amt2">滿 5 <span>萬</span></div>
+            <div class="arw">▼</div>
+            <div class="give"><small>加碼 Q＋音波</small><b>200<em> 條</em></b></div>
+          </div>
+          <div class="step">
+            <div class="lv">LEVEL 2</div>
+            <div class="amt2">滿 8 <span>萬</span></div>
+            <div class="arw">▼</div>
+            <div class="give"><small>加碼 Q＋音波</small><b>400<em> 條</em></b></div>
+          </div>
+          <div class="step">
+            <div class="lv">LEVEL 3</div>
+            <div class="amt2">滿 10 <span>萬</span></div>
+            <div class="arw">▼</div>
+            <div class="give"><small>加碼 Q＋音波</small><b>500<em> 條</em></b></div>
+          </div>
+          <div class="step">
+            <div class="lv">LEVEL 4</div>
+            <div class="amt2">滿 12 <span>萬</span></div>
+            <div class="arw">▼</div>
+            <div class="give"><small>加碼 Q＋音波</small><b>600<em> 條</em></b></div>
+          </div>
+        </div>
+
+        <p class="thanks-note">※ 消費金額不限療程項目，依實際結帳金額累計。</p>
+      </div>
+    </section>
 
     <!-- 1. 自然線條 x 表情管理 -->
     <section class="section">
