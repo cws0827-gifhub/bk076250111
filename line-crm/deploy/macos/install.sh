@@ -40,9 +40,22 @@ $3
 </dict>
 </plist>
 PLIST
-  launchctl bootout "gui/$(id -u)/$1" 2>/dev/null || true
-  launchctl bootstrap "gui/$(id -u)" "$AGENTS/$1.plist"
-  echo "▸ 已載入 $1"
+  local domain="gui/$(id -u)"
+  launchctl bootout "$domain/$1" 2>/dev/null || true
+  # macOS 卸載是非同步的，等舊的服務真的消失再載入，否則會出現 Bootstrap failed: 5
+  for _ in $(seq 1 20); do
+    launchctl print "$domain/$1" >/dev/null 2>&1 || break
+    sleep 0.5
+  done
+  for attempt in 1 2 3; do
+    if launchctl bootstrap "$domain" "$AGENTS/$1.plist" 2>/dev/null; then
+      echo "▸ 已載入 $1"
+      return 0
+    fi
+    sleep 2
+  done
+  echo "❌ 無法載入 $1，請手動執行：launchctl bootstrap $domain $AGENTS/$1.plist"
+  return 1
 }
 
 write_plist com.meizhiyao.line-crm run.sh \
