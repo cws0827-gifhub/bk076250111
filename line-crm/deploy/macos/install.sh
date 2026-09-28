@@ -1,7 +1,8 @@
 #!/bin/bash
-# 在 Mac mini 上執行一次：建立 Python 環境，並註冊兩個 launchd 排程
+# 在 Mac mini 上執行一次：建立 Python 環境，並註冊三個 launchd 排程
 #   com.meizhiyao.line-crm         開機自動啟動網頁服務，當掉自動重啟
 #   com.meizhiyao.line-crm-backup  每天凌晨 3:15 備份資料庫
+#   com.meizhiyao.line-crm-jobs    每分鐘：同步員工名單、寫入 Ragic、急件提醒、每日早報
 # 重跑也安全（會先卸載舊的再重新載入）。
 set -euo pipefail
 APP_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -66,6 +67,10 @@ write_plist com.meizhiyao.line-crm run.sh \
 write_plist com.meizhiyao.line-crm-backup backup.sh \
 "  <key>StartCalendarInterval</key>
   <dict><key>Hour</key><integer>3</integer><key>Minute</key><integer>15</integer></dict>"
+
+write_plist com.meizhiyao.line-crm-jobs jobs.sh \
+"  <key>RunAtLoad</key><true/>
+  <key>StartInterval</key><integer>60</integer>"
 
 PORT="$(grep '^PORT=' .env | cut -d= -f2)"
 echo

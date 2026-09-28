@@ -136,6 +136,28 @@ CF_ACCESS_AUD=Application Audience (AUD) Tag
 程式會向 Cloudflare 驗證登入憑證的簽章，偽造的憑證會被擋下；按「已回覆」時也會記下是哪位同仁處理的。
 改完執行 `bash deploy/macos/install.sh` 重新載入。
 
+## 7. 處理紀錄、報表、Ragic 與通知
+
+每次同仁按按鈕（我來回、已回覆、設追蹤、改回待回覆、改備註、綁定顧客）都會新增一筆紀錄，不會覆蓋。
+看板右上角「處理報表」：每位同仁處理件數、客人等待時間（中位數／平均）、目前還在等的客人、操作明細，可匯出 CSV。
+
+背景工作 `com.meizhiyao.line-crm-jobs` 每分鐘執行 `jobs.py`：
+
+| 工作 | 需要的設定（.env） |
+|---|---|
+| 每天同步員工名單（email → 姓名） | `RAGIC_ACCOUNT`、`RAGIC_STAFF_SHEET` |
+| 每筆操作寫進 Ragic「LINE 客服處理紀錄」，失敗會自動重試 | `RAGIC_LOG_SHEET`、`RAGIC_LOG_FIELD_IDS` |
+| 客人頁面綁定 Ragic 顧客、顯示消費摘要（只讀） | `RAGIC_CUSTOMER_SHEET` |
+| 術後關懷超過 15 分鐘沒人處理 → Synology Chat | `SYNOLOGY_CHAT_WEBHOOK`、`URGENT_ALERT_MINUTES`、`ALERT_HOURS` |
+| 每天 09:00 早報 → Synology Chat | `SYNOLOGY_CHAT_WEBHOOK`、`MORNING_REPORT_TIME` |
+
+- Ragic API Key 放在 `~/.ragic_key`（權限 600），或 `.env` 的 `RAGIC_API_KEY`。
+- **寫進 Ragic 的只有處理紀錄**（誰、何時、按了什麼、狀態變化、等待時間），**不含客人的訊息內容**。早報也不帶訊息內容。
+- Ragic API 寫入只認欄位編號：設計模式點欄位，左側「欄位設定」會顯示編號。`RAGIC_LOG_FIELD_IDS` 整串要用雙引號包起來。
+- Synology Chat Webhook：Synology Chat → 建立頻道（例如「LINE 客服」）→ 頻道設定 → 整合 → 傳入的 Webhook → 複製網址。
+- 看背景工作紀錄：`tail -f ~/Library/Logs/line-crm/com.meizhiyao.line-crm-jobs.log`
+- 手動跑一次：`bash deploy/macos/jobs.sh`
+
 ---
 
 ## 日常維護與疑難排解

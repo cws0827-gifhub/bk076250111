@@ -9,6 +9,7 @@
 <div class="card s-{{ c.status }}" style="margin-bottom:16px">
   <span class="badge">{{ labels[c.status] }}</span>
   {% if c.blocked %}<span class="badge s-done">已封鎖</span>{% endif %}
+  {% if claim_active(c) %}<span class="badge s-follow">🙋 {{ who(c.claimed_by) }} 處理中（{{ c.claimed_at[11:] }} 起）</span>{% endif %}
   <div class="muted" style="margin-top:6px">{{ c.reason }}{% if c.follow_up_at %}・追蹤日 {{ c.follow_up_at }}{% endif %}</div>
   {% if c.tags %}<div style="margin-top:6px">{% for t in c.tags.split(',') if t %}<span class="pill">{{ t }}</span>{% endfor %}</div>{% endif %}
 
@@ -17,6 +18,13 @@
     <label class="muted" for="note">諮詢備註（膚況、在意的點、歷史療程、預算…）</label>
     <textarea id="note" name="note">{{ c.note }}</textarea>
     <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px">
+      {% if c.status in ('urgent', 'reply') %}
+        {% if claim_active(c) and c.claimed_by == g.user %}
+        <button name="action" value="unclaim">取消認領</button>
+        {% elif not claim_active(c) %}
+        <button name="action" value="claim">🙋 我來回</button>
+        {% endif %}
+      {% endif %}
       <button name="action" value="replied" class="primary">已回覆</button>
       <input type="date" name="follow_up_at" value="{{ c.follow_up_at or default_follow }}">
       <button name="action" value="follow">設定追蹤日</button>
@@ -25,6 +33,60 @@
     </div>
   </form>
 </div>
+
+{% if ragic_on %}
+<div class="card" style="margin-bottom:16px">
+  <h2 style="font-size:16px;margin:0 0 8px">Ragic 顧客資料</h2>
+  {% if ragic_error %}<p class="muted">{{ ragic_error }}</p>{% endif %}
+  {% if c.ragic_customer_id %}
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between">
+      <strong>{{ bound.name if bound else c.ragic_customer_name }}</strong>
+      <form method="post" action="{{ url_for('update_customer', user_id=c.user_id) }}">
+        <input type="hidden" name="next" value="{{ url_for('customer', user_id=c.user_id) }}">
+        <button name="action" value="unbind">解除綁定</button>
+      </form>
+    </div>
+    {% if bound %}
+    <dl style="display:grid;grid-template-columns:minmax(0,9em) minmax(0,1fr);gap:4px 12px;margin:10px 0 0">
+      {% for k, v in bound.fields %}<dt class="muted">{{ k }}</dt><dd style="margin:0;overflow-wrap:anywhere">{{ v }}</dd>{% endfor %}
+    </dl>
+    <p style="margin:10px 0 0"><a href="{{ bound.url }}" target="_blank" rel="noopener">在 Ragic 開啟 ↗</a></p>
+    {% endif %}
+  {% else %}
+    <p class="muted" style="margin:0 0 8px">還沒綁定。用姓名或電話搜尋 Ragic 顧客，確認是同一個人再綁定（暱稱常和本名不同，請人工確認）。</p>
+    <form method="get" style="display:flex;gap:8px;flex-wrap:wrap">
+      <input type="search" name="rq" value="{{ rq }}" placeholder="姓名或電話" style="flex:1;min-width:0">
+      <button>搜尋 Ragic</button>
+    </form>
+    {% if results is not none %}
+      {% if not results %}<p class="muted">找不到符合的顧客。</p>{% endif %}
+      <div style="display:grid;gap:6px;margin-top:10px">
+      {% for r in results %}
+        <form method="post" action="{{ url_for('update_customer', user_id=c.user_id) }}"
+              style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:6px">
+          <span><strong>{{ r.name }}</strong> <span class="muted">{{ r.phone }}・上次來店 {{ r.last_visit or '—' }}{% if r.owner %}・{{ r.owner }}{% endif %}</span></span>
+          <input type="hidden" name="next" value="{{ url_for('customer', user_id=c.user_id) }}">
+          <input type="hidden" name="ragic_id" value="{{ r.id }}">
+          <input type="hidden" name="ragic_name" value="{{ r.name }}">
+          <button name="action" value="bind">綁定</button>
+        </form>
+      {% endfor %}
+      </div>
+    {% endif %}
+  {% endif %}
+</div>
+{% endif %}
+
+{% if history %}
+<details class="card" style="margin-bottom:16px">
+  <summary style="cursor:pointer">處理紀錄（{{ history|length }}）</summary>
+  <div style="display:grid;gap:4px;margin-top:8px">
+  {% for h in history %}
+    <div class="muted">{{ h.created_at }}　{{ h.staff_name or h.staff }}　{{ action_labels.get(h.action, h.action) }}{% if h.follow_up_at %}（{{ h.follow_up_at }} 追蹤）{% endif %}{% if h.response_minutes is not none %}・客人等了 {{ h.response_minutes|mins }}{% endif %}{% if h.detail %}・{{ h.detail }}{% endif %}</div>
+  {% endfor %}
+  </div>
+</details>
+{% endif %}
 
 <h2 style="font-size:16px">訊息紀錄</h2>
 <div style="display:grid;grid-template-columns:minmax(0,1fr);gap:8px">

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}處理報表{% endblock %}
+{% block body %}
+<header>
+  <h1>處理報表<small>{{ start }} ～ {{ end }}・{{ who(g.user) }}</small></h1>
+  <div style="display:flex;flex-wrap:wrap;gap:8px">
+    <a class="btn" href="{{ url_for('dashboard') }}">← 回看板</a>
+    <a class="btn" href="{{ url_for('report_csv', start=start, end=end) }}">匯出明細 CSV</a>
+  </div>
+</header>
+
+<form method="get" class="card" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:20px">
+  <label class="muted" for="start">從</label><input type="date" id="start" name="start" value="{{ start }}">
+  <label class="muted" for="end">到</label><input type="date" id="end" name="end" value="{{ end }}">
+  <button>查詢</button>
+  {% if ragic_on %}
+  <span class="muted" style="margin-left:auto">Ragic 同步：{% if sync.n %}<strong style="color:var(--urgent)">{{ sync.n }} 筆待同步</strong>{% if sync.err %}（{{ sync.err }}）{% endif %}{% else %}全部已同步{% endif %}</span>
+  {% else %}
+  <span class="muted" style="margin-left:auto">Ragic 同步尚未設定</span>
+  {% endif %}
+</form>
+
+<h2 style="font-size:16px;margin:0 0 8px">同仁處理統計</h2>
+{% if not people %}<p class="muted">這段期間沒有任何操作紀錄。</p>{% else %}
+<div class="card" style="overflow-x:auto;margin-bottom:24px;padding:6px 10px">
+<table style="width:100%;border-collapse:collapse;font-size:14px;white-space:nowrap">
+  <thead><tr class="muted" style="text-align:left">
+    <th style="padding:6px">同仁</th><th style="padding:6px;text-align:right">處理完成</th>
+    <th style="padding:6px;text-align:right">其中術後急件</th><th style="padding:6px;text-align:right">回覆等待中位數</th>
+    <th style="padding:6px;text-align:right">平均</th><th style="padding:6px;text-align:right">認領</th>
+    <th style="padding:6px;text-align:right">改回待回覆</th><th style="padding:6px;text-align:right">備註</th>
+    <th style="padding:6px;text-align:right">綁定顧客</th>
+  </tr></thead>
+  <tbody>
+  {% for p in people %}
+  <tr style="border-top:1px solid var(--line)">
+    <td style="padding:6px"><strong>{{ p.name }}</strong></td>
+    <td style="padding:6px;text-align:right">{{ p.handled }}</td>
+    <td style="padding:6px;text-align:right">{{ p.urgent }}</td>
+    <td style="padding:6px;text-align:right">{{ p.median|mins }}</td>
+    <td style="padding:6px;text-align:right">{{ p.avg|mins }}</td>
+    <td style="padding:6px;text-align:right">{{ p.counts.get('claim', 0) }}</td>
+    <td style="padding:6px;text-align:right">{{ p.counts.get('reopen', 0) }}</td>
+    <td style="padding:6px;text-align:right">{{ p.counts.get('note', 0) }}</td>
+    <td style="padding:6px;text-align:right">{{ p.counts.get('bind', 0) }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+<p class="muted" style="margin:-16px 0 24px">「回覆等待」＝客人傳訊到同仁按下「已回覆」或「回覆並設追蹤」的時間。在 LINE 回覆後請記得回來按，時間才準。</p>
+{% endif %}
+
+<h2 style="font-size:16px;margin:0 0 8px">目前還在等回覆（{{ waiting|length }}）</h2>
+{% if not waiting %}<p class="muted">沒有客人在等。</p>{% endif %}
+<div style="display:grid;grid-template-columns:minmax(0,1fr);gap:6px;margin-bottom:24px">
+{% for c in waiting %}
+  <a class="card s-{{ c.status }}" href="{{ url_for('customer', user_id=c.user_id) }}"
+     style="display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;text-decoration:none;color:var(--ink);border-left:4px solid var(--c)">
+    <span><span class="badge">{{ labels[c.status] }}</span> <strong>{{ c.display_name or '（未取得暱稱）' }}</strong>
+      {% if c.claimed %}<span class="muted">🙋 {{ who(c.claimed_by) }} 處理中</span>{% endif %}</span>
+    <span class="muted">已等 {{ c.waited|mins }}</span>
+  </a>
+{% endfor %}
+</div>
+
+<h2 style="font-size:16px;margin:0 0 8px">操作明細（最近 {{ recent|length }} 筆）</h2>
+{% if not recent %}<p class="muted">沒有紀錄。</p>{% else %}
+<div class="card" style="overflow-x:auto;padding:6px 10px">
+<table style="width:100%;border-collapse:collapse;font-size:13px;white-space:nowrap">
+  <thead><tr class="muted" style="text-align:left">
+    <th style="padding:5px">時間</th><th style="padding:5px">同仁</th><th style="padding:5px">動作</th>
+    <th style="padding:5px">客人</th><th style="padding:5px">狀態變化</th><th style="padding:5px">客人等待</th><th style="padding:5px">Ragic</th>
+  </tr></thead>
+  <tbody>
+  {% for r in recent %}
+  <tr style="border-top:1px solid var(--line)">
+    <td style="padding:5px">{{ r.created_at }}</td>
+    <td style="padding:5px">{{ r.staff_name or r.staff }}</td>
+    <td style="padding:5px">{{ action_labels.get(r.action, r.action) }}{% if r.follow_up_at %}（{{ r.follow_up_at }}）{% endif %}</td>
+    <td style="padding:5px"><a href="{{ url_for('customer', user_id=r.user_id) }}">{{ r.customer_name or '（未取得暱稱）' }}</a></td>
+    <td style="padding:5px">{{ labels.get(r.from_status, r.from_status or '') }}{% if r.to_status and r.to_status != r.from_status %} → {{ labels.get(r.to_status, r.to_status) }}{% endif %}</td>
+    <td style="padding:5px">{{ r.response_minutes|mins if r.response_minutes is not none else '' }}</td>
+    <td style="padding:5px">{% if r.ragic_synced_at %}✓{% elif r.ragic_error %}<span title="{{ r.ragic_error }}" style="color:var(--urgent)">失敗</span>{% else %}<span class="muted">待送</span>{% endif %}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endif %}
+{% endblock %}
