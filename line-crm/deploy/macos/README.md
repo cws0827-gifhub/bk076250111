@@ -88,6 +88,21 @@ cloudflared tunnel ingress validate            # 檢查設定檔
 cloudflared service install                    # 登入後自動啟動（不要加 sudo：加了會改讀 /etc/cloudflared 的設定）
 ```
 
+⚠️ **macOS 上 `cloudflared service install` 產生的排程少了啟動參數**，裝完後連線通道會每隔幾秒就退出一次
+（紀錄裡會出現 `use cloudflared tunnel run`）。裝完請補上參數，再重新載入：
+
+```bash
+PLIST=~/Library/LaunchAgents/com.cloudflare.cloudflared.plist
+cp "$PLIST" ~/.cloudflared/com.cloudflare.cloudflared.plist.bak
+/usr/libexec/PlistBuddy -c "Add :ProgramArguments: string tunnel" \
+                        -c "Add :ProgramArguments: string run" \
+                        -c "Add :ProgramArguments: string line-crm" "$PLIST"
+launchctl bootout gui/$(id -u) "$PLIST" 2>/dev/null; launchctl bootstrap gui/$(id -u) "$PLIST"
+cloudflared tunnel info line-crm                # 應該看到連線（CONNECTOR）
+```
+
+以後如果重跑 `cloudflared service install`，這些參數會被覆蓋掉，要再補一次。
+
 ⚠️ **LINE 的 Webhook 目前接在領健，不要直接改成 `https://line.beauty-keys.com/callback`**，否則領健會收不到訊息。
 要讓兩邊都收到，請看 [`../cloudflare-relay/README.md`](../cloudflare-relay/README.md)。
 
