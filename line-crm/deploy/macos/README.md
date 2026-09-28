@@ -125,6 +125,17 @@ Mac mini 在家裡，診所的電腦和手機要透過網路連進來。用 Clou
 
 同仁離職時，從 Policy 移除他的 email 即可，不需要改密碼。
 
+**讓同仁通過 email 驗證後直接進入看板（不用再輸入密碼）**：在 `.env` 加上
+
+```
+CF_ACCESS_TEAM_DOMAIN=你的團隊名稱.cloudflareaccess.com
+CF_ACCESS_AUD=Application Audience (AUD) Tag
+```
+
+兩個值都在 Zero Trust → Access → Applications → 美之耀客服看板 → **Overview**。
+程式會向 Cloudflare 驗證登入憑證的簽章，偽造的憑證會被擋下；按「已回覆」時也會記下是哪位同仁處理的。
+改完執行 `bash deploy/macos/install.sh` 重新載入。
+
 ---
 
 ## 日常維護與疑難排解

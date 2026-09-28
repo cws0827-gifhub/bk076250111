@@ -22,7 +22,8 @@ from datetime import datetime, timedelta
 from functools import wraps
 from zoneinfo import ZoneInfo
 
-from flask import Flask, Response, abort, g, redirect, render_template, request, url_for
+import jwt
+from flask import Flask, Response, abort, g, redirect, render_template, request, session, url_for
 
 import classifier as clf
 
@@ -33,8 +34,33 @@ DASHBOARD_USER = os.environ.get("DASHBOARD_USER", "admin")
 DASHBOARD_PASSWORD = os.environ.get("DASHBOARD_PASSWORD", "")
 DB_PATH = os.environ.get("DB_PATH", os.path.join(os.path.dirname(__file__), "line_crm.db"))
 FOLLOW_UP_DAYS = int(os.environ.get("FOLLOW_UP_DAYS", "3"))
+# Cloudflare Access：設定後，通過 email 驗證的同仁直接進入，不用再輸入密碼
+CF_ACCESS_TEAM_DOMAIN = os.environ.get("CF_ACCESS_TEAM_DOMAIN", "")  # 例：xxx.cloudflareaccess.com
+CF_ACCESS_AUD = os.environ.get("CF_ACCESS_AUD", "")
+
+
+def _secret_key():
+    """登入狀態用的簽章金鑰：第一次啟動時產生並存檔，重啟後同仁不必重新登入。"""
+    if os.environ.get("SECRET_KEY"):
+        return os.environ["SECRET_KEY"]
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".secret_key")
+    try:
+        with open(path) as f:
+            return f.read().strip()
+    except FileNotFoundError:
+        key = base64.urlsafe_b64encode(os.urandom(32)).decode()
+        with open(os.open(path, os.O_WRONLY | os.O_CREAT, 0o600), "w") as f:
+            f.write(key)
+        return key
+
 
 app = Flask(__name__)
+app.config.update(
+    SECRET_KEY=_secret_key(),
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE="Lax",
+    PERMANENT_SESSION_LIFETIME=timedelta(hours=12),
+)
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS customers (
@@ -196,23 +222,88 @@ def callback():
     return "OK"
 
 
-# ── 管理頁（需帳號密碼） ────────────────────────────────────
+# ── 管理頁登入 ───────────────────────────────────────────
+#
+# 1. 從 crm.beauty-keys.com 進來：Cloudflare Access 已驗證 email，
+#    這裡再驗一次 Cloudflare 簽發的 JWT（防止偽造），通過就直接登入。
+# 2. 在家用 localhost 開啟：顯示登入頁，用 .env 的帳號密碼登入。
+
+_jwks_client = None
+
+
+def access_user():
+    """回傳 Cloudflare Access 驗證過的 email；沒有或驗證失敗則回傳 None。"""
+    global _jwks_client
+    token = request.headers.get("Cf-Access-Jwt-Assertion")
+    if not (token and CF_ACCESS_TEAM_DOMAIN and CF_ACCESS_AUD):
+        return None
+    try:
+        if _jwks_client is None:
+            _jwks_client = jwt.PyJWKClient(f"https://{CF_ACCESS_TEAM_DOMAIN}/cdn-cgi/access/certs")
+        key = _jwks_client.get_signing_key_from_jwt(token).key
+        claims = jwt.decode(token, key, algorithms=["RS256"], audience=CF_ACCESS_AUD,
+                            issuer=f"https://{CF_ACCESS_TEAM_DOMAIN}")
+        return claims.get("email")
+    except Exception as e:
+        app.logger.warning("Cloudflare Access 憑證驗證失敗：%s", e)
+        return None
+
+
+def current_user():
+    return access_user() or session.get("user")
+
+
+def safe_next(target):
+    """只允許跳轉到本站路徑，避免被利用成轉址到外部網站。"""
+    if target and target.startswith("/") and not target.startswith("//") and "\\" not in target:
+        return target
+    return url_for("dashboard")
 
 
 def require_login(view):
     @wraps(view)
     def wrapped(*args, **kwargs):
-        auth = request.authorization
-        ok = (
-            DASHBOARD_PASSWORD
-            and auth
-            and hmac.compare_digest(auth.username or "", DASHBOARD_USER)
-            and hmac.compare_digest(auth.password or "", DASHBOARD_PASSWORD)
-        )
-        if not ok:
-            return Response("請登入", 401, {"WWW-Authenticate": 'Basic realm="LINE CRM"'})
+        user = current_user()
+        if not user:
+            return redirect(url_for("login", next=request.full_path.rstrip("?")))
+        # 跨站送出的表單一律拒絕
+        if request.method == "POST":
+            origin = request.headers.get("Origin")
+            if origin and origin.split("://", 1)[-1] != request.host:
+                abort(403)
+        g.user = user
+        g.via_access = access_user() is not None
         return view(*args, **kwargs)
     return wrapped
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    next_url = safe_next(request.values.get("next"))
+    if current_user():
+        return redirect(next_url)
+    error = None
+    if request.method == "POST":
+        ok = (
+            DASHBOARD_PASSWORD
+            and hmac.compare_digest(request.form.get("username", ""), DASHBOARD_USER)
+            and hmac.compare_digest(request.form.get("password", ""), DASHBOARD_PASSWORD)
+        )
+        if ok:
+            session.clear()
+            session.permanent = True
+            session["user"] = DASHBOARD_USER
+            return redirect(next_url)
+        error = "帳號或密碼不正確"
+    return render_template("login.html", error=error, next_url=next_url), (401 if error else 200)
+
+
+@app.get("/logout")
+def logout():
+    session.clear()
+    if access_user():
+        return redirect("/cdn-cgi/access/logout")
+    return redirect(url_for("login"))
 
 
 def group_customers(rows):
@@ -266,18 +357,18 @@ def update_customer(user_id):
     ts = fmt(now())
     if action == "replied":
         db.execute("UPDATE customers SET status=?, reason=?, follow_up_at=NULL, updated_at=? WHERE user_id=?",
-                   (clf.DONE, f"已回覆（{ts}）", ts, user_id))
+                   (clf.DONE, f"已回覆（{g.user}，{ts}）", ts, user_id))
     elif action == "follow":
         date = request.form.get("follow_up_at") or fmt(now() + timedelta(days=FOLLOW_UP_DAYS))[:10]
         db.execute("UPDATE customers SET status=?, reason=?, follow_up_at=?, updated_at=? WHERE user_id=?",
-                   (clf.FOLLOW, f"已回覆，{date} 追蹤", date, ts, user_id))
+                   (clf.FOLLOW, f"已回覆（{g.user}），{date} 追蹤", date, ts, user_id))
     elif action == "reopen":
         db.execute("UPDATE customers SET status=?, reason=?, updated_at=? WHERE user_id=?",
-                   (clf.REPLY, "手動改回需要回覆", ts, user_id))
+                   (clf.REPLY, f"{g.user} 改回需要回覆", ts, user_id))
     if note is not None:
         db.execute("UPDATE customers SET note=?, updated_at=? WHERE user_id=?", (note.strip(), ts, user_id))
     db.commit()
-    return redirect(request.form.get("next") or url_for("dashboard"))
+    return redirect(safe_next(request.form.get("next")))
 
 
 @app.get("/export.csv")

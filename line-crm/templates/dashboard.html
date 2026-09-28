@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
 <header>
-  <h1>LINE 客戶追蹤<small>美之耀・顧問式服務看板</small></h1>
+  <h1>LINE 客戶追蹤<small>美之耀・顧問式服務看板・{{ g.user }}　<a href="{{ url_for('logout') }}">登出</a></small></h1>
   <form method="get" style="display:flex;flex-wrap:wrap;gap:8px;width:100%;max-width:520px">
     <input type="search" name="q" value="{{ q }}" placeholder="搜尋暱稱／療程／備註" style="flex:1;min-width:0">
     <button>搜尋</button>
