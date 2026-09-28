@@ -40,6 +40,9 @@ CF_ACCESS_TEAM_DOMAIN = os.environ.get("CF_ACCESS_TEAM_DOMAIN", "")  # 例：xxx
 CF_ACCESS_AUD = os.environ.get("CF_ACCESS_AUD", "")
 # 「我來回」認領多久後自動失效（分鐘）
 CLAIM_MINUTES = int(os.environ.get("CLAIM_MINUTES", "30"))
+# 頁面最上方切換到其他內部系統的連結
+TREAT_URL = os.environ.get("TREAT_URL", "https://treat.augustine.website")
+PERF_URL = os.environ.get("PERF_URL", "https://perf.augustine.website")
 
 
 def _secret_key():
@@ -469,7 +472,8 @@ def staff_name(email, db=None):
 
 @app.context_processor
 def template_helpers():
-    return {"who": staff_name, "claim_active": claim_active, "action_labels": ACTION_LABEL}
+    return {"who": staff_name, "claim_active": claim_active, "action_labels": ACTION_LABEL,
+            "TREAT_URL": TREAT_URL, "PERF_URL": PERF_URL}
 
 
 def claim_active(c, at=None):

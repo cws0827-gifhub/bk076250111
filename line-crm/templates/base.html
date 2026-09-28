@@ -48,7 +48,20 @@ button.primary{background:var(--gold);border-color:var(--gold);color:#fff}
 .s-done{--c:var(--done);--cs:var(--done-soft)}
 .badge{display:inline-block;font-size:12px;padding:2px 10px;border-radius:999px;background:var(--cs);color:var(--c);font-weight:700}
 .muted{color:var(--muted);font-size:13px}
+.systems{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;align-items:center;margin:-8px 0 12px;font-size:13px}
+.systems a,.systems span{padding:3px 10px;border-radius:8px;text-decoration:none;white-space:nowrap}
+.systems a{color:var(--muted);border:1px dashed var(--line)}
+.systems a:hover{color:var(--gold);border-color:var(--gold)}
+.systems span{color:var(--gold);font-weight:700}
 </style>
 </head>
-<body><div class="wrap">{% block body %}{% endblock %}</div></body>
+<body><div class="wrap">
+{% if g.user %}
+<nav class="systems" aria-label="切換系統">
+  <span>LINE 客服</span>
+  <a href="{{ TREAT_URL }}">治療單 ↗</a>
+  <a href="{{ PERF_URL }}">行政績效 ↗</a>
+</nav>
+{% endif %}
+{% block body %}{% endblock %}</div></body>
 </html>

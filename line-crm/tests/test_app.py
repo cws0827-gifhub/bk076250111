@@ -105,6 +105,14 @@ class LoginTest(unittest.TestCase):
         self.assertEqual(r.status_code, 401)
         self.assertIn("不正確", r.get_data(as_text=True))
 
+    def test_system_links_only_after_login(self):
+        self.assertNotIn("治療單 ↗", self.client.get("/login").get_data(as_text=True))
+        self.client.post("/login", data={"username": "admin", "password": "pw"})
+        page = self.client.get("/").get_data(as_text=True)
+        self.assertIn("https://treat.augustine.website", page)
+        self.assertIn("https://perf.augustine.website", page)
+        self.client.get("/logout")
+
     def test_login_then_logout(self):
         r = self.client.post("/login", data={"username": "admin", "password": "pw", "next": "/export.csv"})
         self.assertEqual(r.headers["Location"], "/export.csv")
