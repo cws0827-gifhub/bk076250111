@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block body %}
+<header>
+  <h1>LINE 客戶追蹤<small>美之耀・顧問式服務看板</small></h1>
+  <form method="get" style="display:flex;flex-wrap:wrap;gap:8px;width:100%;max-width:520px">
+    <input type="search" name="q" value="{{ q }}" placeholder="搜尋暱稱／療程／備註" style="flex:1;min-width:0">
+    <button>搜尋</button>
+    <a class="btn" href="{{ url_for('export_csv') }}">匯出 CSV</a>
+  </form>
+</header>
+
+{% set sections = [
+  ("urgent", "術後關懷・立即回覆", "客人描述紅腫、疼痛、過敏等不適，請優先由醫師或護理師確認。"),
+  ("reply",  "需要回覆", "有提問、想預約、傳照片的客人。先了解狀況，再給方案。"),
+  ("due",    "今天該追蹤", "追蹤日已到，適合主動關心、補充衛教或邀約諮詢。"),
+  ("follow", "追蹤中", "還在考慮的客人，已排定追蹤日。"),
+  ("done",   "無需處理", "已回覆或只是客套收尾。"),
+] %}
+
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px">
+{% for key, title, _ in sections %}
+  <a class="badge s-{{ key }}" href="#{{ key }}" style="text-decoration:none">{{ title }} {{ groups[key]|length }}</a>
+{% endfor %}
+</div>
+
+{% for key, title, desc in sections %}
+<section id="{{ key }}" class="s-{{ key }}" style="margin-bottom:28px">
+  <h2 style="font-size:16px;margin:0 0 2px;color:var(--c)">{{ title }}（{{ groups[key]|length }}）</h2>
+  <p class="muted" style="margin:0 0 10px">{{ desc }}</p>
+  {% if not groups[key] %}<p class="muted">目前沒有。</p>{% endif %}
+  <div style="display:grid;grid-template-columns:minmax(0,1fr);gap:10px">
+  {% for c in groups[key] %}
+    <div class="card" style="border-left:4px solid var(--c)">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px">
+        <a href="{{ url_for('customer', user_id=c.user_id) }}" style="font-weight:700;color:var(--ink)">
+          {{ c.display_name or '（未取得暱稱）' }}</a>
+        <span class="muted">{{ c.last_message_at }}{% if c.follow_up_at %}・追蹤日 {{ c.follow_up_at }}{% endif %}</span>
+      </div>
+      <div style="margin:4px 0;overflow-wrap:anywhere">{{ c.last_message }}</div>
+      {% if c.key_message and c.key_message != c.last_message and key != "done" %}
+      <div style="margin:4px 0;padding:6px 10px;border-radius:8px;background:var(--cs);overflow-wrap:anywhere">
+        <span class="muted">關鍵訊息：</span>{{ c.key_message }}</div>
+      {% endif %}
+      <div class="muted">{{ c.reason }}</div>
+      {% if c.tag_list %}<div style="margin-top:6px">{% for t in c.tag_list %}<span class="pill">{{ t }}</span>{% endfor %}</div>{% endif %}
+      {% if c.note %}<div class="muted" style="margin-top:4px">📝 {{ c.note }}</div>{% endif %}
+      {% if key != "done" %}
+      <form method="post" action="{{ url_for('update_customer', user_id=c.user_id) }}"
+            style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">
+        <input type="hidden" name="next" value="{{ request.full_path }}">
+        <button name="action" value="replied" class="primary">已回覆</button>
+        <button name="action" value="follow">回覆了，{{ follow_days }} 天後追蹤</button>
+        <a class="btn" href="{{ url_for('customer', user_id=c.user_id) }}">詳細／備註</a>
+      </form>
+      {% endif %}
+    </div>
+  {% endfor %}
+  </div>
+</section>
+{% endfor %}
+{% endblock %}

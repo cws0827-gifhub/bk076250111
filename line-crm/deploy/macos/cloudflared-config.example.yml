@@ -1,0 +1,16 @@
+# Cloudflare Tunnel 設定範本 → 複製到 ~/.cloudflared/config.yml
+# Mac mini 放在家裡：由 Mac 主動連到 Cloudflare，家裡路由器不用開任何 port。
+tunnel: 請填 cloudflared tunnel create 產生的 Tunnel ID
+credentials-file: /Users/請填你的使用者名稱/.cloudflared/請填TunnelID.json
+
+ingress:
+  # LINE（或分流站）送訊息進來：只開放 /callback
+  - hostname: line.beauty-keys.com
+    path: ^/callback$
+    service: http://localhost:8765
+  # 診所同仁用的管理頁：一定要先在 Cloudflare Zero Trust 設定 Access，
+  # 只允許指定 email 登入，否則整個管理頁會公開在網路上
+  - hostname: crm.beauty-keys.com
+    service: http://localhost:8765
+  # 其他一律回 404
+  - service: http_status:404

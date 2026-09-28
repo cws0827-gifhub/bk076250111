@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ c.display_name or '客人' }}{% endblock %}
+{% block body %}
+<header>
+  <h1>{{ c.display_name or '（未取得暱稱）' }}<small>{{ c.user_id }}</small></h1>
+  <a class="btn" href="{{ url_for('dashboard') }}">← 回看板</a>
+</header>
+
+<div class="card s-{{ c.status }}" style="margin-bottom:16px">
+  <span class="badge">{{ labels[c.status] }}</span>
+  {% if c.blocked %}<span class="badge s-done">已封鎖</span>{% endif %}
+  <div class="muted" style="margin-top:6px">{{ c.reason }}{% if c.follow_up_at %}・追蹤日 {{ c.follow_up_at }}{% endif %}</div>
+  {% if c.tags %}<div style="margin-top:6px">{% for t in c.tags.split(',') if t %}<span class="pill">{{ t }}</span>{% endfor %}</div>{% endif %}
+
+  <form method="post" action="{{ url_for('update_customer', user_id=c.user_id) }}" style="margin-top:14px">
+    <input type="hidden" name="next" value="{{ url_for('customer', user_id=c.user_id) }}">
+    <label class="muted" for="note">諮詢備註（膚況、在意的點、歷史療程、預算…）</label>
+    <textarea id="note" name="note">{{ c.note }}</textarea>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px">
+      <button name="action" value="replied" class="primary">已回覆</button>
+      <input type="date" name="follow_up_at" value="{{ c.follow_up_at or default_follow }}">
+      <button name="action" value="follow">設定追蹤日</button>
+      <button name="action" value="reopen">改回需要回覆</button>
+      <button name="action" value="note">只儲存備註</button>
+    </div>
+  </form>
+</div>
+
+<h2 style="font-size:16px">訊息紀錄</h2>
+<div style="display:grid;grid-template-columns:minmax(0,1fr);gap:8px">
+{% for m in msgs %}
+  <div class="card s-{{ m.status }}">
+    <div class="muted">{{ m.created_at }} <span class="badge">{{ labels.get(m.status, m.status) }}</span></div>
+    <div style="overflow-wrap:anywhere">{{ m.text }}</div>
+    <div class="muted">{{ m.reason }}</div>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}

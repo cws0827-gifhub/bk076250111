@@ -1,0 +1,15 @@
+name = "line-webhook-relay"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+# LINE Webhook URL 改填 https://hook.beauty-keys.com/
+routes = [{ pattern = "hook.beauty-keys.com", custom_domain = true }]
+
+[vars]
+# 原本 LINE Developers 裡填的廠商 Webhook 網址（切換前務必先抄下來）
+VENDOR_URL = "https://請填領健原本的Webhook網址"
+# 美之耀 Mac mini（透過 Cloudflare Tunnel）
+CRM_URL = "https://line.beauty-keys.com/callback"
+
+[observability]
+enabled = true
