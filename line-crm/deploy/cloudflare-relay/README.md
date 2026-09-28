@@ -37,28 +37,49 @@ LINE → hook.beauty-keys.com（Cloudflare Worker）
 先完成 Mac mini 的安裝和 Cloudflare Tunnel（見 [`../macos/README.md`](../macos/README.md)），然後在 Mac mini 上執行：
 
 ```bash
-cd bk076250111/line-crm/deploy/cloudflare-relay
-open -e wrangler.toml     # VENDOR_URL 填入領健原本的 Webhook 網址
-npx wrangler login
+cd ~/bk076250111/line-crm/deploy/cloudflare-relay
+npx wrangler login                 # 瀏覽器授權 Cloudflare
+npx wrangler secret put VENDOR_URL  # 貼上領健原本的 Webhook 網址（不會顯示、不會存進 repo）
 npx wrangler deploy
 ```
 
 **領健原本的網址**：LINE Developers → 你的 channel → Messaging API → Webhook URL。
-**切換前先抄下來、存好**，這也是還原用的網址。
+**切換前先抄下來，存在密碼管理器**，這也是還原用的網址。
+⚠️ 這個 repo 是公開的，**不要把領健的網址寫進任何檔案或 commit**。
 
-## 3. 切換前先測試
+## 3. 切換前的驗證（不影響任何人）
 
-1. 用瀏覽器打開 `https://hook.beauty-keys.com/`，應顯示 `OK`。
-2. 建議先開一個**測試用的 LINE 官方帳號**，把 Webhook 指向分流站，跑一輪領健有用到的功能，確認沒問題。
-3. **告知領健**：Webhook 前面多了一個轉發點，他們排查問題時才知道。
+用一則**沒有 LINE 簽章的假訊息**，分別直接打給領健、以及打給分流站，比較兩邊的回應。
+兩者一致，代表分流站把請求原封不動送到了領健；假訊息沒有有效簽章，領健和 Mac mini 都會拒收，不會產生任何資料。
+
+```bash
+BODY='{"destination":"test","events":[]}'
+H='X-Line-Signature: invalid-test-signature'
+# ① 直接打領健（從密碼管理器貼上網址，不要存進檔案）
+read -rs VENDOR; echo
+curl -s -o /dev/null -w '直接打領健：%{http_code}\n' -X POST "$VENDOR" -H "$H" -H 'Content-Type: application/json' -d "$BODY"
+# ② 透過分流站
+curl -s -o /dev/null -w '透過分流站：%{http_code}\n' -X POST https://hook.beauty-keys.com/ -H "$H" -H 'Content-Type: application/json' -d "$BODY"
+unset VENDOR
+# ③ Mac mini 也收到了（應該看到一筆 POST /callback 400）
+tail -5 ~/Library/Logs/line-crm/com.meizhiyao.line-crm.log
+```
+
+**①② 的狀態碼必須相同**才能繼續。不同的話，先不要切換。
 
 ## 4. 正式切換
 
-1. LINE Developers → Messaging API → Webhook URL 改為 `https://hook.beauty-keys.com/` → **Verify**。
-2. 用自己的手機傳幾則訊息給官方帳號，確認：
-   - 領健後台有收到，相關功能正常
-   - 美之耀看板也出現這幾則訊息
-3. 觀察一兩天。Cloudflare 後台 → Workers → line-webhook-relay → Logs，可以看到有沒有轉發錯誤。
+建議挑**客人訊息少的時段**（例如晚上診所休息後）。
+
+1. LINE Developers → Messaging API → Webhook URL 改為 `https://hook.beauty-keys.com/` → **Update** → **Verify**
+   - Verify 顯示 **Success** → 繼續
+   - Verify 失敗 → **立刻改回領健原本的網址**，把錯誤訊息記下來
+2. 用自己的手機傳幾則訊息給官方帳號，例如「測試：請問皮秒多少錢」「測試：打完很腫怎麼辦」，確認：
+   - **美之耀看板**出現這幾則訊息，並且分類正確
+   - **領健**原本的功能照常運作：他們的後台看得到訊息；如果有自動回覆、預約或會員綁定，也各試一次
+3. 觀察 24 小時：Cloudflare 後台 → Workers → line-webhook-relay → **Logs**，
+   出現「廠商無法連線」或「CRM 無法連線」就要處理。
+4. **通知領健**：Webhook 前面多了一個轉發點（`hook.beauty-keys.com`），轉送內容與簽章都沒有改動。之後他們排查問題時才知道。
 
 ## 出問題時立刻還原
 

@@ -6,10 +6,12 @@ compatibility_date = "2026-09-01"
 routes = [{ pattern = "hook.beauty-keys.com", custom_domain = true }]
 
 [vars]
-# 原本 LINE Developers 裡填的廠商 Webhook 網址（切換前務必先抄下來）
-VENDOR_URL = "https://請填領健原本的Webhook網址"
 # 美之耀 Mac mini（透過 Cloudflare Tunnel）
 CRM_URL = "https://line.beauty-keys.com/callback"
+
+# 廠商（領健）原本的 Webhook 網址「不要」寫在這裡：這個 repo 是公開的，
+# 網址裡可能含有通行碼。請用加密變數設定：
+#   npx wrangler secret put VENDOR_URL
 
 [observability]
 enabled = true

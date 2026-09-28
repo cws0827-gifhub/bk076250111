@@ -56,4 +56,13 @@ async function run(fakeFetch) {
   assert.equal(res.status, 502);
 }
 
+// 5. 尚未設定廠商網址：回 500，不轉送任何地方
+{
+  const calls = [];
+  globalThis.fetch = async (url) => { calls.push(url); return new Response("ok"); };
+  const res = await worker.fetch(makeRequest(), { CRM_URL: env.CRM_URL }, { waitUntil() {} });
+  assert.equal(res.status, 500);
+  assert.equal(calls.length, 0);
+}
+
 console.log("分流站測試全部通過");

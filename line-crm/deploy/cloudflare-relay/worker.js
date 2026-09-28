@@ -25,6 +25,11 @@ export default {
       return new Response("OK");
     }
 
+    if (!env.VENDOR_URL) {
+      // 尚未設定廠商網址：回 500 讓 LINE 稍後重送，不要默默吃掉訊息
+      return new Response("VENDOR_URL not configured", { status: 500 });
+    }
+
     const body = await request.arrayBuffer();
     const headers = forwardHeaders(request);
 
