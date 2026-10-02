@@ -206,8 +206,24 @@ html{scroll-behavior:smooth}body{margin:0;background:var(--ivory)}
   .bk-chapter{padding-top:var(--space-16)}
   .bk-menu{padding:var(--space-2) var(--space-8)}
 }
+
+/* ── 楓葉飄落 ── */
+.bk{position:relative}
+.bk-hero,.bk-index,.bk-main,.bk-close{position:relative;z-index:1}
+.bk-leaves{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bk-leaf{position:absolute;top:-60px;left:var(--x);width:var(--s);height:var(--s);
+  animation:bk-fall var(--d) linear var(--delay) infinite;will-change:transform}
+.bk-leaf svg{display:block;width:100%;height:100%;opacity:var(--o);
+  animation:bk-sway var(--sw) ease-in-out var(--delay) infinite alternate;will-change:transform}
+@keyframes bk-fall{to{transform:translate3d(var(--drift),calc(100vh + 120px),0)}}
+@keyframes bk-sway{
+  0%{transform:translateX(-22px) rotate(-30deg) rotateX(0deg)}
+  50%{transform:translateX(6px) rotate(10deg) rotateX(50deg)}
+  100%{transform:translateX(24px) rotate(42deg) rotateX(0deg)}}
+@media(prefers-reduced-motion:reduce){.bk-leaves{display:none}}
 </style></head><body>
 <div class="bk">
+<div class="bk-leaves" aria-hidden="true"></div>
 
 <header class="bk-hero">
   <div class="bk-hero__text">
@@ -408,4 +424,19 @@ html{scroll-behavior:smooth}body{margin:0;background:var(--ivory)}
 </footer>
 
 </div>
+<script>
+(function(){
+  var box=document.querySelector('.bk-leaves');
+  if(!box||(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches))return;
+  var leaf='M50 4 56 20 64 12 62 30 80 22 74 38 94 40 82 52 90 60 68 62 60 72 52 66 52 96 48 96 48 66 40 72 32 62 10 60 18 52 6 40 26 38 20 22 38 30 36 12 44 20Z';
+  var colors=['#8a3a22','#b8752f','#bc9c77','#a5532c','#c98a45'];
+  var n=window.innerWidth<640?7:12,r=Math.random,html='';
+  for(var i=0;i<n;i++){
+    var d=14+r()*12;
+    html+='<span class="bk-leaf" style="--x:'+(r()*100).toFixed(1)+'vw;--s:'+(16+r()*18).toFixed(0)+'px;--d:'+d.toFixed(1)+'s;--delay:-'+(r()*d).toFixed(1)+'s;--drift:'+((r()-.5)*160).toFixed(0)+'px;--sw:'+(2.6+r()*2.4).toFixed(1)+'s;--o:'+(.35+r()*.35).toFixed(2)+'">'
+      +'<svg viewBox="0 0 100 100"><path d="'+leaf+'" fill="'+colors[i%colors.length]+'"/></svg></span>';
+  }
+  box.innerHTML=html;
+})();
+</script>
 </body></html>
