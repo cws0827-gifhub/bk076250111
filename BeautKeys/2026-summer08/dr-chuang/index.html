@@ -3,159 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>莊子毅 醫師｜10/24 岡山客座</title>
-<meta name="description" content="莊子毅醫師 10/24 特地來岡山看診．台灣微整型美容醫學會講師">
+<title>莊子毅 醫師｜美學設計與客製化評估</title>
+<meta name="description" content="先讀懂一張臉，再決定下一針。莊子毅醫師 10/24 岡山客座。">
 <meta property="og:type" content="website">
-<meta property="og:title" content="莊子毅 醫師｜10/24 岡山客座">
-<meta property="og:description" content="台灣微整型美容醫學會講師．10/24 特地來岡山看診">
+<meta property="og:title" content="莊子毅 醫師｜美學設計與客製化評估">
+<meta property="og:description" content="先讀懂一張臉，再決定下一針。10/24 岡山客座。">
 <meta property="og:site_name" content="莊子毅 醫師">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="莊子毅 醫師｜10/24 岡山客座">
-<meta name="twitter:description" content="台灣微整型美容醫學會講師．10/24 特地來岡山看診">
+<meta name="twitter:title" content="莊子毅 醫師｜美學設計與客製化評估">
+<meta name="twitter:description" content="先讀懂一張臉，再決定下一針。10/24 岡山客座。">
 <style>
-  :root{
-    --ink:#2b2f38;
-    --soft:#6d7280;
-    --navy:#1f4a8f;
-    --sand:#c8ab80;
-    --sand-lt:#e8dcc6;
-    --bg:#faf7f1;
-    --card:#fff;
-    --line:#e9e1d2;
-    --hot:#b8512f;
-  }
+  :root{--ink:#1c1b19;--soft:#6f6a63;--faint:#9b958c;--bronze:#9a7b4f;
+    --bronze-lt:#c9b391;--bg:#faf8f4;--line:#e6e0d6;}
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{
-    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
-    color:var(--ink);background:var(--bg);line-height:1.7;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:900px;margin:0 auto;padding:0 18px 80px}
-
-  /* ===== Hero ===== */
-  .hero{
-    position:relative;overflow:hidden;
-    background:linear-gradient(135deg,#efe6d4 0%,#f7f2e8 55%,#faf7f1 100%);
-    padding:40px 18px 0;
-  }
-  .hero-in{
-    max-width:900px;margin:0 auto;
-    display:grid;grid-template-columns:1fr 300px;gap:30px;align-items:end;
-  }
-  .badge{
-    display:inline-flex;align-items:center;gap:8px;
-    background:var(--hot);color:#fff;font-weight:800;
-    border-radius:40px;padding:8px 20px;
-    font-size:clamp(14px,3.4vw,17px);letter-spacing:.08em;
-    box-shadow:0 10px 24px -12px rgba(184,81,47,.8);
-  }
-  .hero h1{
-    font-size:clamp(40px,9vw,66px);font-weight:800;
-    letter-spacing:.1em;color:var(--navy);margin:18px 0 4px;
-  }
-  .hero h1 small{
-    display:inline-block;font-size:.36em;font-weight:700;
-    color:var(--ink);letter-spacing:.2em;margin-left:10px;vertical-align:middle;
-  }
-  .hero .en{font-size:13px;letter-spacing:.24em;color:var(--sand);font-weight:700;text-transform:uppercase}
-  .hero .lead{
-    margin-top:14px;font-size:clamp(14.5px,3.5vw,17px);color:var(--soft);
-    letter-spacing:.04em;padding-bottom:34px;
-  }
-  .hero .lead b{color:var(--hot);font-weight:800}
-  .hero-photo{
-    border-radius:20px 20px 0 0;overflow:hidden;
-    box-shadow:0 -6px 40px -16px rgba(43,47,56,.35);
-    align-self:end;
-  }
-  .hero-photo img{display:block;width:100%;height:auto}
-
-  /* ===== Section ===== */
-  .sec{margin-top:34px}
-  .sec-t{
-    display:flex;align-items:center;gap:12px;margin-bottom:16px;
-  }
-  .sec-t span{
-    font-size:11.5px;letter-spacing:.2em;color:var(--sand);font-weight:800;
-  }
-  .sec-t h2{
-    font-size:clamp(19px,4.4vw,24px);font-weight:800;
-    color:var(--navy);letter-spacing:.06em;
-  }
-  .sec-t::after{content:"";flex:1;height:1px;background:var(--line)}
-
-  .card{
-    background:var(--card);border:1px solid var(--line);
-    border-radius:18px;padding:22px 24px;
-  }
-
-  /* 講師 */
-  .lect{display:flex;flex-direction:column;gap:10px}
-  .lect li{
-    list-style:none;display:flex;gap:11px;align-items:flex-start;
-    font-size:clamp(15px,3.6vw,17px);font-weight:600;
-  }
-  .lect li::before{
-    content:"";flex:none;width:7px;height:7px;border-radius:50%;
-    background:var(--sand);margin-top:.62em;
-  }
-
-  /* 資歷 */
-  .cv{display:flex;flex-direction:column;gap:9px}
-  .cv li{
-    list-style:none;display:flex;gap:11px;align-items:flex-start;
-    font-size:clamp(14.5px,3.4vw,16px);color:var(--soft);
-  }
-  .cv li::before{content:"—";flex:none;color:var(--sand);font-weight:700}
-  .cv li b{color:var(--ink);font-weight:700}
-
-  /* 認證標籤 */
-  .tags{display:flex;flex-wrap:wrap;gap:8px}
-  .tags span{
-    background:#f6f1e6;border:1px solid var(--line);border-radius:30px;
-    padding:7px 15px;font-size:clamp(13px,3.2vw,14.5px);
-  }
-  .tags span i{font-style:normal;color:var(--sand);font-weight:700;margin-right:5px}
-
-  /* 療程分組 */
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-  .box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px}
-  .box h3{
-    font-size:15.5px;font-weight:800;color:var(--navy);
-    letter-spacing:.06em;margin-bottom:12px;
-    padding-bottom:10px;border-bottom:1px dashed var(--line);
-  }
-  .box p{font-size:clamp(14px,3.4vw,15.5px);color:var(--soft);line-height:1.95}
-
-  /* 相片牆 */
-  .gal{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:620px}
-  .gal img{
-    display:block;width:100%;height:100%;object-fit:cover;
-    border-radius:14px;aspect-ratio:3/4;
-  }
-
-  /* CTA */
-  .cta{
-    margin-top:36px;text-align:center;padding:34px 24px;
-    background:linear-gradient(135deg,#1f4a8f,#36639f);
-    border-radius:22px;color:#fff;
-  }
-  .cta .d{font-size:clamp(26px,6.5vw,40px);font-weight:800;letter-spacing:.06em}
-  .cta .d small{display:block;font-size:.34em;font-weight:700;letter-spacing:.22em;opacity:.85;margin-bottom:6px}
-  .cta p{margin-top:10px;opacity:.9;letter-spacing:.08em;font-size:15px}
-
-  .note{
-    text-align:center;color:var(--soft);font-size:12.5px;
-    letter-spacing:.05em;margin-top:24px;line-height:1.9;
-  }
-
-  @media(max-width:720px){
-    .hero{padding:30px 18px 0}
+  body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.9;letter-spacing:.02em;
+    -webkit-font-smoothing:antialiased;}
+  .serif{font-family:"Songti TC","Noto Serif TC","PingFang TC",serif}
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px}
+  .en{font-size:11px;letter-spacing:.32em;color:var(--bronze);font-weight:700;text-transform:uppercase}
+  .rule{width:38px;height:1px;background:var(--bronze-lt);margin:18px 0}
+  .hero{padding:68px 0 0;overflow:hidden}
+  .hero-in{max-width:880px;margin:0 auto;padding:0 24px;
+    display:grid;grid-template-columns:1fr 286px;gap:46px;align-items:end}
+  .hero .date{display:inline-block;border:1px solid var(--bronze-lt);color:var(--bronze);
+    border-radius:2px;padding:6px 14px;font-size:12.5px;letter-spacing:.14em;
+    font-weight:700;margin-bottom:26px}
+  .hero h1{font-size:clamp(38px,8vw,58px);font-weight:500;letter-spacing:.14em;
+    line-height:1.25;margin-bottom:6px}
+  .hero h1 em{font-style:normal;font-size:.34em;letter-spacing:.3em;color:var(--soft);margin-left:14px}
+  .hero .quote{font-size:clamp(17px,4.2vw,23px);line-height:1.95;color:var(--ink);
+    margin-top:26px;letter-spacing:.06em}
+  .hero .sub{margin-top:14px;font-size:14.5px;color:var(--soft);letter-spacing:.06em;padding-bottom:40px}
+  .hero-photo{align-self:end}
+  .hero-photo img{display:block;width:100%;height:auto;border-radius:2px}
+  section{padding:62px 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:none}
+  .s-head{margin-bottom:34px}
+  .s-head h2{font-size:clamp(23px,5vw,30px);font-weight:500;letter-spacing:.1em;margin-top:10px}
+  .philo p{font-size:clamp(15.5px,3.7vw,17.5px);line-height:2.15;color:var(--soft);
+    margin-bottom:18px;max-width:660px}
+  .philo p:last-child{margin-bottom:0}
+  .philo strong{color:var(--ink);font-weight:600}
+  .flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line)}
+  .step{background:var(--bg);padding:28px 24px}
+  .step .n{font-size:30px;font-weight:300;color:var(--bronze-lt);letter-spacing:.04em;line-height:1}
+  .step h3{font-size:16.5px;font-weight:700;letter-spacing:.1em;margin:14px 0 9px}
+  .step p{font-size:14px;color:var(--soft);line-height:1.9}
+  .fx{display:grid;grid-template-columns:150px 1fr;gap:26px;padding:26px 0;
+    border-bottom:1px solid var(--line);align-items:start}
+  .fx:last-child{border-bottom:none}
+  .fx .t{font-size:clamp(17px,4vw,20px);font-weight:600;letter-spacing:.1em}
+  .fx .t span{display:block;font-size:10.5px;letter-spacing:.26em;color:var(--bronze);
+    font-weight:700;margin-bottom:7px}
+  .fx .d{font-size:15px;color:var(--soft);line-height:2}
+  .fx .d b{display:inline-block;color:var(--ink);font-weight:600;
+    border-bottom:1px solid var(--bronze-lt);padding-bottom:1px;margin-right:10px}
+  .mat{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px}
+  .mat div h3{font-size:14px;font-weight:700;letter-spacing:.14em;color:var(--bronze);
+    padding-bottom:11px;border-bottom:1px solid var(--line);margin-bottom:13px}
+  .mat div p{font-size:14.5px;color:var(--soft);line-height:2.05}
+  .gal{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .gal img{display:block;width:100%;height:100%;object-fit:cover;aspect-ratio:3/4;border-radius:2px}
+  .cred{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:34px}
+  .cred h3{font-size:13px;font-weight:700;letter-spacing:.16em;color:var(--bronze);margin-bottom:14px}
+  .cred ul{list-style:none}
+  .cred li{font-size:14.5px;color:var(--soft);line-height:1.95;padding:5px 0 5px 16px;position:relative}
+  .cred li::before{content:"";position:absolute;left:0;top:.95em;width:5px;height:1px;background:var(--bronze-lt)}
+  .cred li b{color:var(--ink);font-weight:600}
+  .certs{margin-top:26px;padding-top:22px;border-top:1px solid var(--line);
+    font-size:13.5px;color:var(--faint);line-height:2.1;letter-spacing:.03em}
+  .certs b{color:var(--soft);font-weight:600}
+  .cta{text-align:center;padding:72px 24px;background:var(--ink);color:#f3efe8}
+  .cta .en{color:var(--bronze-lt)}
+  .cta .d{font-size:clamp(34px,8.5vw,54px);font-weight:400;letter-spacing:.12em;margin:16px 0 14px}
+  .cta p{font-size:15px;opacity:.72;letter-spacing:.1em;line-height:2}
+  .note{max-width:880px;margin:0 auto;padding:30px 24px 70px;font-size:12px;
+    color:var(--faint);line-height:2.1;letter-spacing:.03em}
+  @media(max-width:760px){
+    .hero{padding:44px 0 0}
     .hero-in{grid-template-columns:1fr;gap:0}
-    .hero-photo{max-width:280px;margin:14px auto 0}
-    .hero .lead{padding-bottom:18px}
-    .gal{grid-template-columns:repeat(2,1fr)}
+    .hero .sub{padding-bottom:26px}
+    .hero-photo{max-width:260px;margin-top:8px}
+    section{padding:48px 0}
+    .fx{grid-template-columns:1fr;gap:10px;padding:22px 0}
   }
 </style>
 </head>
@@ -164,126 +96,135 @@
   <header class="hero">
     <div class="hero-in">
       <div>
-        <span class="badge">🗓 10 / 24（五）限定看診</span>
-        <p class="en" style="margin-top:20px">Dr. Chuang Tzu-Yi</p>
-        <h1>莊子毅<small>醫師</small></h1>
-        <p class="lead">台灣微整型美容醫學會 講師<br><b>10/24 特地前來岡山美之耀服務</b>，名額有限，歡迎預約。</p>
+        <span class="date">10 / 24（五）岡山客座</span>
+        <p class="en">Medical Aesthetics</p>
+        <h1 class="serif">莊子毅<em>醫師</em></h1>
+        <p class="quote serif">先讀懂一張臉，<br>再決定下一針。</p>
+        <p class="sub">台灣微整型美容醫學會 講師</p>
       </div>
-      <div class="hero-photo"><img src="img/p3.jpg" alt="莊子毅醫師形象照"></div>
+      <div class="hero-photo"><img src="img/p3.jpg" alt="莊子毅醫師"></div>
     </div>
   </header>
 
-  <main class="wrap">
+  <div class="wrap">
 
-    <!-- 原廠講師 -->
-    <section class="sec">
-      <div class="sec-t"><span>LECTURER</span><h2>原廠講師資格</h2></div>
-      <div class="card">
-        <ul class="lect">
-          <li>台灣微整型美容醫學會　<b>講師</b></li>
-          <li>Cleviel<sup>®</sup> 極濃玻尿酸　<b>原廠講師</b></li>
-          <li>Letybo<sup>®</sup> 保提拉肉毒　<b>原廠講師</b></li>
-          <li>Meteora<sup>®</sup> 美特拉埋線　<b>原廠講師</b></li>
-        </ul>
+    <section class="philo">
+      <div class="s-head">
+        <p class="en">Philosophy</p>
+        <h2 class="serif">美學設計的起點，是理解</h2>
+        <div class="rule"></div>
+      </div>
+      <p>美學設計不是把五官變大或變小，而是重新安排<strong>比例、層次與光影</strong>。同樣一支針劑，用在不同人身上，結果不會一樣。</p>
+      <p>每個人的骨架結構、軟組織分布、表情習慣與老化速度都不同。有些人需要的是支撐，有些人需要的是收束，也有人其實只需要把某一處的陰影處理掉。</p>
+      <p>所以在動手之前，<strong>先看懂這張臉原本的樣子</strong>——哪裡是天生的特色應該保留，哪裡是後天流失需要補回。這是客製化評估真正的意義。</p>
+    </section>
+
+    <section>
+      <div class="s-head">
+        <p class="en">Process</p>
+        <h2 class="serif">客製化評估流程</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="flow">
+        <div class="step"><p class="n">01</p><h3>面診觀察</h3>
+          <p>從骨架比例、軟組織分布到動態表情，完整理解臉部條件與個人需求。</p></div>
+        <div class="step"><p class="n">02</p><h3>美學設計</h3>
+          <p>依個人條件排列調整優先順序，清楚說明可行範圍與實際限制。</p></div>
+        <div class="step"><p class="n">03</p><h3>分層執行</h3>
+          <p>從深層支撐到淺層線條，依結構分層安排，避免單點過度堆疊。</p></div>
+        <div class="step"><p class="n">04</p><h3>回診追蹤</h3>
+          <p>觀察恢復與代謝狀況，依實際變化微調細節，而非一次到位。</p></div>
       </div>
     </section>
 
-    <!-- 資歷 -->
-    <section class="sec">
-      <div class="sec-t"><span>EXPERIENCE</span><h2>學經歷</h2></div>
-      <div class="card">
-        <ul class="cv">
-          <li><b>中山醫學大學</b> 醫學系學士</li>
-          <li><b>高雄長庚醫院</b> 訓練醫師</li>
-          <li><b>奇美醫院</b> 總醫師</li>
-          <li>台灣衛福部 <b>認證專科醫師</b></li>
-          <li>中華民國美容醫學會 會員醫師</li>
-          <li>雷射光電應用學會 會員醫師</li>
-          <li>形體美容外科學會 會員醫師</li>
-        </ul>
+    <section>
+      <div class="s-head">
+        <p class="en">Design Focus</p>
+        <h2 class="serif">三個設計面向</h2>
+        <div class="rule"></div>
+      </div>
+      <div>
+        <div class="fx">
+          <p class="t"><span>Structure</span>立體支撐</p>
+          <p class="d">處理因骨架條件或支撐流失造成的扁平與凹陷，建立臉部的立體基礎。<br><b>4D 微創仿刀隆鼻</b><b>輪廓填充</b></p>
+        </div>
+        <div class="fx">
+          <p class="t"><span>Contour</span>線條收束</p>
+          <p class="d">針對下顏面輪廓與鬆弛走向，重新整理臉部邊界與線條方向。<br><b>下巴下顎線雕塑</b><b>埋線拉提</b></p>
+        </div>
+        <div class="fx">
+          <p class="t"><span>Detail</span>細節修飾</p>
+          <p class="d">處理陰影、紋路與局部肌肉張力，讓整體神情更放鬆自然。<br><b>淚溝法令紋修補</b><b>肉毒除皺體雕</b></p>
+        </div>
       </div>
     </section>
 
-    <!-- 相片 -->
-    <section class="sec">
-      <div class="sec-t"><span>PORTRAIT</span><h2>醫師形象</h2></div>
+    <section>
       <div class="gal">
-        <img src="img/p2.jpg" alt="莊子毅醫師形象照">
-        <img src="img/p1.jpg" alt="莊子毅醫師形象照">
+        <img src="img/p2.jpg" alt="莊子毅醫師">
+        <img src="img/p1.jpg" alt="莊子毅醫師">
       </div>
     </section>
 
-    <!-- 客製化評估 -->
-    <section class="sec">
-      <div class="sec-t"><span>CONSULTATION</span><h2>客製化評估療程</h2></div>
-      <div class="card">
-        <div class="tags">
-          <span>4D 微創仿刀隆鼻</span>
-          <span>埋線拉提</span>
-          <span>下巴下顎線雕塑</span>
-          <span>輪廓填充</span>
-          <span>淚溝法令紋修補</span>
-          <span>肉毒除皺體雕</span>
-        </div>
+    <section>
+      <div class="s-head">
+        <p class="en">Materials</p>
+        <h2 class="serif">可運用的療程媒材</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="mat">
+        <div><h3>填充注射</h3><p>玻尿酸・晶亮瓷・伊蓮絲<br>舒顏萃・艾麗斯・薇貝拉<br>埋線拉提</p></div>
+        <div><h3>儀器療程</h3><p>皮秒蜂巢雷射<br>鳳凰電波<br>音波拉提</p></div>
+        <div><h3>回春抗衰</h3><p>肉毒桿菌<br>生長因子<br>血小板凍晶</p></div>
       </div>
     </section>
 
-    <!-- 治療項目 -->
-    <section class="sec">
-      <div class="sec-t"><span>TREATMENT</span><h2>治療項目</h2></div>
-      <div class="grid">
-        <div class="box">
-          <h3>填充注射</h3>
-          <p>玻尿酸、晶亮瓷、伊蓮絲、舒顏萃、艾麗斯、薇貝拉、埋線拉提</p>
+    <section>
+      <div class="s-head">
+        <p class="en">Credentials</p>
+        <h2 class="serif">專業背景</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="cred">
+        <div>
+          <h3>原廠講師</h3>
+          <ul>
+            <li><b>台灣微整型美容醫學會</b> 講師</li>
+            <li><b>Cleviel®</b> 極濃玻尿酸 原廠講師</li>
+            <li><b>Letybo®</b> 保提拉肉毒 原廠講師</li>
+            <li><b>Meteora®</b> 美特拉埋線 原廠講師</li>
+          </ul>
         </div>
-        <div class="box">
-          <h3>儀器療程</h3>
-          <p>皮秒蜂巢雷射、鳳凰電波、音波拉提</p>
-        </div>
-        <div class="box">
-          <h3>回春抗衰</h3>
-          <p>肉毒桿菌、生長因子、血小板凍晶</p>
+        <div>
+          <h3>學經歷</h3>
+          <ul>
+            <li><b>中山醫學大學</b> 醫學系學士</li>
+            <li><b>高雄長庚醫院</b> 訓練醫師</li>
+            <li><b>奇美醫院</b> 總醫師</li>
+            <li>台灣衛福部 <b>認證專科醫師</b></li>
+            <li>中華民國美容醫學會 會員醫師</li>
+            <li>雷射光電應用學會 會員醫師</li>
+            <li>形體美容外科學會 會員醫師</li>
+          </ul>
         </div>
       </div>
+      <p class="certs"><b>原廠認證項目</b><br>
+        Picosure 皮秒雷射・Sculptra 舒顏萃・Botox 保妥適肉毒・AestheFill 精靈針・Letybo 保堤拉肉毒・Vivibella 魔法針・Radiesse 晶亮瓷・Ellanse 伊蓮斯・Juvederm 玻尿酸・Miracle 提美拉線雕・Cleviel 玻尿酸・Meteora 美特拉線雕・PLT 血小板凍晶・Thermage 鳳凰電波</p>
     </section>
 
-    <!-- 原廠認證 -->
-    <section class="sec">
-      <div class="sec-t"><span>CERTIFICATION</span><h2>原廠認證項目</h2></div>
-      <div class="card">
-        <div class="tags">
-          <span><i>Picosure</i>皮秒雷射</span>
-          <span><i>Sculptra</i>舒顏萃</span>
-          <span><i>Botox</i>保妥適肉毒</span>
-          <span><i>AestheFill</i>精靈針</span>
-          <span><i>Letybo</i>保堤拉肉毒</span>
-          <span><i>Vivibella</i>魔法針</span>
-          <span><i>Radiesse</i>晶亮瓷</span>
-          <span><i>Ellanse</i>伊蓮斯</span>
-          <span><i>Juvederm</i>玻尿酸</span>
-          <span><i>Miracle</i>提美拉線雕</span>
-          <span><i>Cleviel</i>玻尿酸</span>
-          <span><i>Meteora</i>美特拉線雕</span>
-          <span><i>PLT</i>血小板凍晶</span>
-          <span><i>Thermage</i>鳳凰電波</span>
-        </div>
-        <p style="margin-top:14px;font-size:12.5px;color:var(--soft);line-height:1.85">
-          ※ 上列認證代表醫師已完成各該產品或設備之原廠訓練，屬專業資歷，不代表療效保證。
-        </p>
-      </div>
-    </section>
+  </div>
 
-    <!-- CTA -->
-    <div class="cta">
-      <p class="d"><small>限定看診</small>10 / 24（五）</p>
-      <p>莊子毅醫師 特地前來岡山美之耀服務<br>名額有限，請提前預約</p>
-    </div>
+  <div class="cta">
+    <p class="en">Guest Consultation</p>
+    <p class="d serif">10 / 24（五）</p>
+    <p>莊子毅醫師 特地前來岡山美之耀服務<br>採預約制，名額有限</p>
+  </div>
 
-    <p class="note">
-      ※ 實際看診時段以診所現場公告與當月班表為準。<br>
-      ※ 療程效果因人而異，施作前須經醫師面診評估。
-    </p>
+  <p class="note">
+    ※ 原廠認證代表醫師已完成各該產品或設備之原廠訓練，屬專業資歷，不代表療效保證。<br>
+    ※ 療程項目與適用方式需經醫師面診評估後決定，效果因個人體質與條件而異。<br>
+    ※ 實際看診時段以診所現場公告與當月班表為準。
+  </p>
 
-  </main>
 </body>
 </html>
